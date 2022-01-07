@@ -19,6 +19,12 @@
   color: rgb(0, 8, 96);
 }
 
+@media screen and (max-width: 640px) {
+  .welcome-hero {
+    height: unset;
+  }
+}
+
 .welcome-hero-title {
   max-width: 676px;
   line-height: 1.15 !important;

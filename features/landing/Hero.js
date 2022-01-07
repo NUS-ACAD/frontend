@@ -139,13 +139,13 @@ function Hero({ setIsModalShown }) {
           initial="hidden"
           animate="show"
           variants={InnerContentAnim}
-          className="flex flex-col z-10 mt-16 md:mt-0 items-center md:items-start"
+          className="flex flex-col z-10 mb-80 sm:mb-0 mt-8 sm:mt-16 md:mt-0 items-center md:items-start"
         >
           <motion.h1
             initial="hidden"
             animate="show"
             variants={TitleAnim}
-            className="text-2xl sm:text-5xl md:text-7xl mb-2.5 md:mb-8 font-bold welcome-hero-title text-center md:text-left"
+            className="text-3xl sm:text-5xl md:text-7xl mb-2.5 md:mb-8 font-bold welcome-hero-title text-center md:text-left"
           >
             The academic planner you never knew you needed.
           </motion.h1>
