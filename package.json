@@ -5,7 +5,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "node -e \"if(require('fs').existsSync('.git')){process.exit(1)}\" || is-ci || husky install",
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "next": "12.0.7",
@@ -15,8 +17,25 @@
   "devDependencies": {
     "autoprefixer": "^10.4.1",
     "eslint": "8.6.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "12.0.7",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.5",
     "postcss": "^8.4.5",
+    "prettier": "^2.5.1",
+    "pretty-quick": "^3.1.3",
     "tailwindcss": "^3.0.11"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx}": [
+      "pretty-quick --staged",
+      "eslint --fix"
+    ]
   }
 }
