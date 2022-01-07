@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useStoreActions } from 'easy-peasy';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
@@ -163,6 +164,7 @@ function RegisterModal() {
   const [nextPageDisabled, setNextPageDisabled] = useState(true);
   const [registerDisabled, setRegisterDisabled] = useState(true);
   const router = useRouter();
+  const setUser = useStoreActions((actions) => actions.setUser);
 
   useEffect(() => {
     if (
@@ -233,7 +235,7 @@ function RegisterModal() {
       matriculationYear,
     })
       .then((data) => {
-        // TODO: Handle the returned user data
+        setUser(data.user);
         tokenUtils.storeToken(data.token);
         router.push('/home');
       })

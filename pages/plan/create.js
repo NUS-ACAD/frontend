@@ -1,6 +1,7 @@
 import { debounce } from 'debounce';
 import { motion } from 'framer-motion';
 import { useCallback, useState } from 'react';
+import { useStoreState } from 'easy-peasy';
 import Container from '../../components/Container';
 import Input from '../../components/Input';
 import Sidebar from '../../components/Sidebar';
@@ -9,6 +10,7 @@ import MODULES from '../../data/moduleData';
 import ModuleCard from '../../components/ModuleCard';
 import Plan from '../../components/Plan';
 import { FAKE_PLAN } from '../../data/fakeData';
+import NotAllowed from '../../components/NotAllowed';
 
 const MODULE_ARRAY = Object.entries(MODULES);
 
@@ -21,6 +23,7 @@ function getRelevantModules(searchString) {
 
 function PlanCreate() {
   const [modules, setModules] = useState([]);
+  const user = useStoreState((state) => state.user);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onSearchChange = useCallback(
@@ -34,6 +37,10 @@ function PlanCreate() {
     }, 500),
     [],
   );
+
+  if (!user) {
+    return <NotAllowed />;
+  }
 
   return (
     <Container

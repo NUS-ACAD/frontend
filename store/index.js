@@ -1,4 +1,4 @@
-import { action, createStore } from 'easy-peasy';
+import { action, createStore, persist } from 'easy-peasy';
 
 const addModuleHelper = (state, payload) => {
   if (state.plan.startYear > payload.year) {
@@ -74,23 +74,29 @@ const removeModuleHelper = (state, payload) => {
   ];
 };
 
-const store = createStore({
-  plan: {
-    title: '',
-    description: '',
-    isPrimary: false,
-    startYear: 2019,
-    semesters: [],
-  },
-  // Example payload: { year: 2019, semesterNo: 3, moduleCode: 'CS3216', moduleTitle: '...', order: 1 }
-  addModule: action((state, payload) => {
-    addModuleHelper(state, payload);
-  }),
-  // Example payload: { year: 2019, semesterNo: 3, moduleCode: 'CS3216' }
-  removeModule: action((state, payload) => {
-    removeModuleHelper(state, payload);
-  }),
-  /*
+const store = createStore(
+  persist({
+    user: null,
+    setUser: action((state, payload) => {
+      // eslint-disable-next-line no-param-reassign
+      state.user = payload;
+    }),
+    plan: {
+      title: '',
+      description: '',
+      isPrimary: false,
+      startYear: 2019,
+      semesters: [],
+    },
+    // Example payload: { year: 2019, semesterNo: 3, moduleCode: 'CS3216', moduleTitle: '...', order: 1 }
+    addModule: action((state, payload) => {
+      addModuleHelper(state, payload);
+    }),
+    // Example payload: { year: 2019, semesterNo: 3, moduleCode: 'CS3216' }
+    removeModule: action((state, payload) => {
+      removeModuleHelper(state, payload);
+    }),
+    /*
     Example payload: {
       oldYear: 2019,
       oldSemesterNo: 3,
@@ -102,20 +108,21 @@ const store = createStore({
       moduleCode: 'CS3216',
     }
   */
-  shiftModule: action((state, payload) => {
-    removeModuleHelper(state, {
-      year: payload.oldYear,
-      semesterNo: payload.oldSemesterNo,
-      moduleCode: payload.moduleCode,
-    });
-    addModuleHelper(state, {
-      year: payload.newYear,
-      semesterNo: payload.newSemesterNo,
-      moduleCode: payload.moduleCode,
-      moduleTitle: payload.moduleTitle,
-      order: payload.newOrder,
-    });
+    shiftModule: action((state, payload) => {
+      removeModuleHelper(state, {
+        year: payload.oldYear,
+        semesterNo: payload.oldSemesterNo,
+        moduleCode: payload.moduleCode,
+      });
+      addModuleHelper(state, {
+        year: payload.newYear,
+        semesterNo: payload.newSemesterNo,
+        moduleCode: payload.moduleCode,
+        moduleTitle: payload.moduleTitle,
+        order: payload.newOrder,
+      });
+    }),
   }),
-});
+);
 
 export default store;

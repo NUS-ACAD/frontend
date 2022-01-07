@@ -1,4 +1,6 @@
+import { useStoreState } from 'easy-peasy';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 import Arrow from '../../assets/svgr/ButtonArrow';
 
@@ -17,6 +19,9 @@ const HeaderAnim = {
 };
 
 function Header({ setIsModalShown }) {
+  const user = useStoreState((state) => state.user);
+  const router = useRouter();
+
   return (
     <motion.div
       initial="hidden"
@@ -27,10 +32,16 @@ function Header({ setIsModalShown }) {
       <div className="w-full max-w-screen-2xl flex items-center justify-between">
         <div className="font-black text-2xl">ACAD</div>
         <Button
-          label="Login"
+          label={user ? 'Back to App' : 'Login'}
           icon={<Arrow />}
           className="blue-button"
-          onClick={() => setIsModalShown(true)}
+          onClick={() => {
+            if (user) {
+              router.push('/home');
+              return;
+            }
+            setIsModalShown(true);
+          }}
         />
       </div>
     </motion.div>

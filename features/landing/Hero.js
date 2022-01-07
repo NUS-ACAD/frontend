@@ -1,4 +1,6 @@
+import { useStoreState } from 'easy-peasy';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 import Arrow from '../../assets/svgr/ButtonArrow';
 import Button from '../../components/Button';
@@ -122,6 +124,9 @@ const BackgroundAnim = {
 };
 
 function Hero({ setIsModalShown }) {
+  const user = useStoreState((state) => state.user);
+  const router = useRouter();
+
   return (
     <motion.div
       initial="hidden"
@@ -160,15 +165,20 @@ function Hero({ setIsModalShown }) {
           </motion.h2>
           <motion.div initial="hidden" animate="show" variants={ButtonAnim}>
             <Button
-              label="Get Started"
+              label={user ? 'Back to App' : 'Get Started'}
               icon={<Arrow />}
               className="blue-button"
-              onClick={() => setIsModalShown(true)}
+              onClick={() => {
+                if (user) {
+                  router.push('/home');
+                  return;
+                }
+                setIsModalShown(true);
+              }}
             />
           </motion.div>
         </motion.div>
       </motion.div>
-      {/* TODO: Add absolute background element */}
       <motion.div
         variants={BackgroundAnim}
         initial="hidden"

@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
+import { useStoreState } from 'easy-peasy';
 import Sidebar from '../components/Sidebar';
 import { FAKE_GROUP_BRIEF, FAKE_PLAN_BRIEF } from '../data/fakeData';
 import SITE from '../site.config';
 
 import SidebarContent from '../features/home/SidebarContent';
+import NotAllowed from '../components/NotAllowed';
 
 const { default: Container } = require('../components/Container');
 
@@ -11,6 +13,12 @@ function Home() {
   const hour = new Date().getHours();
   // eslint-disable-next-line no-nested-ternary
   const timeOfDay = hour < 12 ? 'Morning' : hour < 17 ? 'Afternoon' : 'Evening';
+  const user = useStoreState((state) => state.user);
+
+  if (!user) {
+    return <NotAllowed />;
+  }
+
   return (
     <Container title={`Home | ${SITE.title}`} description={SITE.description}>
       <Sidebar>

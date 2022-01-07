@@ -31,3 +31,8 @@ export const register = async ({
   // Contains user and token, handle this on the frontend side, not here.
   return response.data;
 };
+
+export const getSelf = async () => {
+  const response = await ApiService.get('/api/auto_login');
+  return response.data;
+};

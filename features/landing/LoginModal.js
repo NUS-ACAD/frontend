@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useStoreActions } from 'easy-peasy';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
@@ -73,6 +74,7 @@ function LoginModal({ isShown, setIsShown }) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const setUser = useStoreActions((actions) => actions.setUser);
 
   const setIsShownWrapper = (newIsShown) => {
     if (!newIsShown) {
@@ -99,7 +101,7 @@ function LoginModal({ isShown, setIsShown }) {
     setIsLoading(true);
     await login({ email, password })
       .then((data) => {
-        // TODO: Handle the returned user data
+        setUser(data.user);
         tokenUtils.storeToken(data.token);
         router.push('/home');
       })

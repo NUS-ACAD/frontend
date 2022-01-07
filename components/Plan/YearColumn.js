@@ -10,6 +10,13 @@ function YearColumn({ year, semesters }) {
     return prev;
   }, {});
 
+  const getSemName = (sem) => {
+    if (sem >= 3) {
+      return `ST PART ${sem - 2}`;
+    }
+    return `SEM ${sem}`;
+  };
+
   return (
     <div className="flex flex-col">
       <h1 className="text-center font-bold text-2xl mb-2">{`AY${year}/${
@@ -22,7 +29,7 @@ function YearColumn({ year, semesters }) {
               className="text-center font-semibold text-lg mb-2"
               style={{ color: '#7B7B81' }}
             >
-              SEM {sem}
+              {getSemName(sem)}
             </h2>
             <div className="flex flex-col overflow-y-auto">
               {semToDataMap[sem]?.mods
