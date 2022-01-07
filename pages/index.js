@@ -10,12 +10,12 @@ export default function Welcome() {
     <>
       <Header />
       <Container
-        className="pt-28"
+        className="pt-28 items-center"
         title={SITE.title}
         description={SITE.description}
         padding
       >
-        <div className="rounded-3xl w-full overflow-hidden welcome-hero mb-8">
+        <div className="rounded-3xl w-full max-w-screen-xl overflow-hidden welcome-hero mb-8">
           <div className="w-full h-full px-8 md:px-24 flex flex-col items-start justify-start md:justify-center">
             <div className="flex flex-col mt-16 md:mt-0 items-center md:items-start">
               <h1 className="text-5xl md:text-7xl mb-2.5 md:mb-8 font-bold welcome-hero-title text-center md:text-left">
