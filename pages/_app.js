@@ -1,14 +1,18 @@
 import { SkeletonTheme } from 'react-loading-skeleton';
-import '../styles/globals.css';
-// eslint-disable-next-line import/imports-first
+import { StoreProvider } from 'easy-peasy';
 import 'react-loading-skeleton/dist/skeleton.css';
+
+import store from '../store';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
   // TODO: Add providers here
   return (
-    <SkeletonTheme baseColor="#1B1923" highlightColor="#282131">
-      <Component {...pageProps} />
-    </SkeletonTheme>
+    <StoreProvider store={store}>
+      <SkeletonTheme baseColor="#1B1923" highlightColor="#282131">
+        <Component {...pageProps} />
+      </SkeletonTheme>
+    </StoreProvider>
   );
 }
 
