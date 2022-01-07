@@ -1,0 +1,47 @@
+.header {
+  background-color: rgba(6, 6, 6, 0.4);
+}
+
+.welcome-hero {
+  background-image: radial-gradient(
+      at 85% 17%,
+      rgb(251, 91, 99) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 1% 90%, rgb(250, 142, 247) 0px, transparent 55%),
+    radial-gradient(at 97% 25%, rgb(165, 210, 238) 0px, transparent 47%),
+    radial-gradient(at 16% 9%, rgb(144, 86, 215) 0px, transparent 48%),
+    radial-gradient(at 89% 0%, rgb(232, 189, 79) 0px, transparent 45%),
+    radial-gradient(at 75% 44%, rgb(240, 152, 177) 0px, transparent 51%),
+    radial-gradient(at 38% 44%, rgb(122, 163, 245) 0px, transparent 54%);
+  background-color: rgb(245, 168, 124);
+  height: 780px;
+  color: rgb(0, 8, 96);
+}
+
+.welcome-hero-title {
+  max-width: 676px;
+  line-height: 1.15 !important;
+  background-color: #fc9238;
+  background-image: linear-gradient(90deg, #031a8d 0%, #12043b 100%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+
+.welcome-hero-subtitle {
+  letter-spacing: 0.02em;
+  max-width: 432px;
+}
+
+.footer-divider {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(230, 35, 187, 0.5) 0%,
+    rgba(248, 184, 79, 0.5) 39.82%
+  );
+}

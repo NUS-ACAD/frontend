@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './button.css';
+@import './modal.css';
+@import './form.css';
+@import './landing.css';
+
 html,
 body {
   padding: 0;
@@ -18,95 +23,4 @@ a {
 
 * {
   box-sizing: border-box;
-}
-
-/* GENERAL COMPONENTS */
-
-.blue-button {
-  color: white;
-  background-color: rgb(0, 8, 96);
-}
-
-.modal {
-  background-color: rgba(21, 37, 50, 0.3);
-  position: relative;
-  border-radius: 10px;
-  border-style: solid;
-  border-color: rgb(252, 146, 56);
-  border-width: 2px;
-}
-
-.modal-title {
-  color: rgb(252, 146, 56);
-  background-color: rgb(252, 146, 56);
-  background-image: linear-gradient(
-      90deg,
-      rgb(230, 35, 187) 0%,
-      rgb(248, 184, 79) 100%
-    ),
-    linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255));
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-
-.input {
-  height: 52px;
-  background-color: rgba(0, 0, 0, 0.25);
-  line-height: 24px;
-  font-size: 16px;
-  border: 2px solid rgb(42, 42, 42);
-}
-
-/* LANDING FEATURES  */
-
-.header {
-  background-color: rgba(6, 6, 6, 0.4);
-}
-
-.welcome-hero {
-  background-image: radial-gradient(
-      at 85% 17%,
-      rgb(251, 91, 99) 0px,
-      transparent 50%
-    ),
-    radial-gradient(at 1% 90%, rgb(250, 142, 247) 0px, transparent 55%),
-    radial-gradient(at 97% 25%, rgb(165, 210, 238) 0px, transparent 47%),
-    radial-gradient(at 16% 9%, rgb(144, 86, 215) 0px, transparent 48%),
-    radial-gradient(at 89% 0%, rgb(232, 189, 79) 0px, transparent 45%),
-    radial-gradient(at 75% 44%, rgb(240, 152, 177) 0px, transparent 51%),
-    radial-gradient(at 38% 44%, rgb(122, 163, 245) 0px, transparent 54%);
-  background-color: rgb(245, 168, 124);
-  height: 780px;
-  color: rgb(0, 8, 96);
-}
-
-.welcome-hero-title {
-  max-width: 676px;
-  line-height: 1.15 !important;
-  background-color: #fc9238;
-  background-image: linear-gradient(90deg, #031a8d 0%, #12043b 100%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-
-.welcome-hero-subtitle {
-  letter-spacing: 0.02em;
-  max-width: 432px;
-}
-
-.footer-divider {
-  height: 3px;
-  background: linear-gradient(
-    90deg,
-    rgba(230, 35, 187, 0.5) 0%,
-    rgba(248, 184, 79, 0.5) 39.82%
-  );
 }
