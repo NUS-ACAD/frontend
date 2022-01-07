@@ -22,9 +22,9 @@ function Header() {
       initial="hidden"
       animate="show"
       variants={HeaderAnim}
-      className="z-10 backdrop-blur-xl header fixed w-full py-4 px-4 md:px-24 flex justify-center"
+      className="z-10 backdrop-blur-xl header fixed w-full py-4 px-4 md:px-32 flex justify-center"
     >
-      <div className="w-full max-w-screen-xl flex items-center justify-between">
+      <div className="w-full max-w-screen-2xl flex items-center justify-between">
         <div className="font-black text-2xl">ACAD</div>
         <Button label="Login" icon={<Arrow />} className="blue-button" />
       </div>

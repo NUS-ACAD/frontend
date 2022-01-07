@@ -127,7 +127,7 @@ function Hero() {
       initial="hidden"
       animate="show"
       variants={OuterContainerAnim}
-      className="rounded-3xl w-full max-w-screen-xl overflow-hidden welcome-hero mt-28 mb-8"
+      className="rounded-3xl w-full max-w-screen-2xl overflow-hidden welcome-hero mt-28 mb-8"
     >
       <motion.div
         initial="hidden"
