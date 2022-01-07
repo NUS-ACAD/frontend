@@ -74,7 +74,7 @@ function PlanCreate() {
           return;
         }
         if (
-          clonedPlan.semesters[semesterIndex]?.modules.findIndex(
+          clonedPlan.semesters[semesterIndex]?.modules?.findIndex(
             (mod) =>
               mod.moduleCode.toLowerCase() === selectedModule.toLowerCase(),
           ) !== -1
@@ -108,6 +108,18 @@ function PlanCreate() {
     });
     setSelectedModule(null);
     setShiftSource(null);
+  };
+
+  const onRemove = (moduleCode, sem, year) => {
+    if (selectedModule) {
+      // Don't allow deletion when a module is selected
+      return;
+    }
+    removeModule({
+      semesterNo: sem,
+      year,
+      moduleCode,
+    });
   };
 
   return (
@@ -165,6 +177,7 @@ function PlanCreate() {
             }}
             selectedModule={selectedModule}
             shiftSource={shiftSource}
+            onRemove={onRemove}
           />
         </motion.div>
       </div>

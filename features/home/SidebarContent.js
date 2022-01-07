@@ -1,53 +1,132 @@
 import { motion } from 'framer-motion';
 import { SkeletonTheme } from 'react-loading-skeleton';
+import Link from 'next/link';
 import GroupCard from '../../components/GroupCard';
 import PlanCard from '../../components/PlanCard';
 import SidebarCardGhost from '../../components/SidebarCardGhost';
+import Plus from '../../assets/svgr/Plus';
+
+const generateAnim = (delay) => ({
+  hidden: {
+    x: -50,
+    opacity: 0,
+  },
+  show: {
+    opacity: [0, 1, 1, 1],
+    x: 0,
+    transition: {
+      duration: 2.5,
+      type: 'spring',
+      velocity: 100,
+      stiffness: 700,
+      damping: 100,
+      delay,
+    },
+  },
+});
 
 function SidebarContent({ plan, group }) {
   return (
     <SkeletonTheme baseColor="#201F28" highlightColor="#332D3B">
       <motion.h2
-        className="font-bold mx-4 mb-2 text-lg"
+        variants={generateAnim(0.1)}
+        initial="hidden"
+        animate="show"
+        className="font-bold mx-4 mb-2 text-lg flex items-center"
         style={{ color: '#7B7B81' }}
       >
-        PLANS
+        PLANS{' '}
+        <Link href="/plan/create" passHref>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a>
+            <Plus className="ml-1" />
+          </a>
+        </Link>
       </motion.h2>
-      <motion.div className="mx-4 mb-2">
+      <motion.div
+        variants={generateAnim(0.2)}
+        initial="hidden"
+        animate="show"
+        className="mx-4 mb-2"
+      >
         {plan == null ? (
           <SidebarCardGhost height={108} />
         ) : (
           <PlanCard plan={plan} />
         )}
       </motion.div>
-      <motion.div className="mx-4 mb-4 text-xs" style={{ color: '#E17D8A' }}>
+      <motion.div
+        variants={generateAnim(0.3)}
+        initial="hidden"
+        animate="show"
+        className="mx-4 mb-4 text-xs"
+        style={{ color: '#E17D8A' }}
+      >
         View More
       </motion.div>
       <motion.h2
+        variants={generateAnim(0.4)}
+        initial="hidden"
+        animate="show"
         className="font-bold mx-4 mb-2 text-lg"
         style={{ color: '#7B7B81' }}
       >
         GROUPS
       </motion.h2>
-      <motion.div className="mx-4 mb-2">
+      <motion.div
+        variants={generateAnim(0.5)}
+        initial="hidden"
+        animate="show"
+        className="mx-4 mb-2"
+      >
         {group == null ? (
           <SidebarCardGhost height={108} />
         ) : (
           <GroupCard group={group} />
         )}
       </motion.div>
-      <motion.div className="mx-4 mb-4 text-xs" style={{ color: '#E17D8A' }}>
+      <motion.div
+        variants={generateAnim(0.6)}
+        initial="hidden"
+        animate="show"
+        className="mx-4 mb-4 text-xs"
+        style={{ color: '#E17D8A' }}
+      >
         View More
       </motion.div>
       <motion.h2
+        variants={generateAnim(0.7)}
+        initial="hidden"
+        animate="show"
         className="font-bold mx-4 mb-2 text-lg"
         style={{ color: '#7B7B81' }}
       >
         RECENT ACTIVITY
       </motion.h2>
-      <motion.div className="mx-4 mb-2">Activity Row</motion.div>
-      <motion.div className="mx-4 mb-2">Activity Row</motion.div>
-      <motion.div className="mx-4 mb-2">Activity Row</motion.div>
+      <motion.div
+        variants={generateAnim(0.8)}
+        initial="hidden"
+        animate="show"
+        className="mx-4 mb-2"
+      >
+        Activity Row
+      </motion.div>
+      <motion.div
+        variants={generateAnim(0.9)}
+        initial="hidden"
+        animate="show"
+        className="mx-4 mb-2"
+      >
+        Activity Row
+      </motion.div>
+      <motion.div
+        variants={generateAnim(1)}
+        initial="hidden"
+        animate="show"
+        className="mx-4 mb-2"
+      >
+        Activity Row
+      </motion.div>
     </SkeletonTheme>
   );
 }

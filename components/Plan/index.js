@@ -9,6 +9,7 @@ function Plan({
   onClickModule,
   selectedModule,
   shiftSource,
+  onRemove,
 }) {
   // Assumption: start year of plan === user start year
   const years = [
@@ -33,6 +34,7 @@ function Plan({
             selectedModule={selectedModule}
             shiftSource={shiftSource}
             onClickModule={onClickModule}
+            onRemove={onRemove}
           />
         ))}
       </div>

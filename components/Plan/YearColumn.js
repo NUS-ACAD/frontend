@@ -8,6 +8,7 @@ function YearColumn({
   selectedModule,
   shiftSource,
   onClickModule,
+  onRemove,
 }) {
   const sems = Array.from(
     new Set([1, 2, ...semesters.map((sem) => sem.semesterNo)]),
@@ -67,6 +68,10 @@ function YearColumn({
                         code={m.moduleCode}
                         title={m.moduleTitle}
                         isSelected={isSelected}
+                        onRemove={(event) => {
+                          event.stopPropagation();
+                          onRemove(m.moduleCode, sem, year);
+                        }}
                       />
                     </div>
                   );

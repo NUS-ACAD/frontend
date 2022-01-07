@@ -1,6 +1,7 @@
 import classNames from 'classnames';
+import Cross from '../../assets/svgr/Cross';
 
-function ModuleCard({ code, title, semesters, isSelected = false }) {
+function ModuleCard({ code, title, semesters, onRemove, isSelected = false }) {
   return (
     <div
       className={classNames(
@@ -11,7 +12,15 @@ function ModuleCard({ code, title, semesters, isSelected = false }) {
       )}
       style={{ backgroundColor: '#201F28' }}
     >
-      <div className="text-s font-semibold mb-1 sidebar-card-title">{code}</div>
+      <div className="text-s font-semibold mb-1 sidebar-card-title flex items-center justify-between">
+        {code}
+        {onRemove && (
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+          <div onClick={onRemove}>
+            <Cross />
+          </div>
+        )}
+      </div>
       <div className="text-xs mb-1">{title}</div>
       {semesters && (
         <div className="flex">

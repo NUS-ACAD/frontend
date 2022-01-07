@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import SITE from '../site.config';
 
 const BackgroundAnim = {
@@ -9,7 +10,6 @@ const BackgroundAnim = {
   show: {
     opacity: [0, 1, 1, 1],
     x: 0,
-
     transition: {
       duration: 2.5,
       type: 'spring',
@@ -32,7 +32,10 @@ function Sidebar({ children }) {
         animate="show"
         className="flex items-center"
       >
-        <h1 className="font-black text-2xl ml-4 my-4 mr-1">{SITE.title}</h1>
+        <Link href="/home" passHref>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a className="font-black text-2xl ml-4 my-4 mr-1">{SITE.title}</a>
+        </Link>
         <div
           className="text-xs font-semibold py-1 px-2 rounded-lg"
           style={{ backgroundColor: '#ed506e', transform: 'scale(0.7)' }}

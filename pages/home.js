@@ -30,7 +30,7 @@ function Home() {
         </motion.h1>
         <div className="w-full flex">
           <div className="flex flex-col home-activity-feed">
-            <motion.h2 className="mb-2">All activity</motion.h2>
+            <motion.h2 className="font-semibold mb-2">All activity</motion.h2>
           </div>
           <div className="flex flex-col home-recommendations">
             <motion.h2 className="font-semibold mb-2">Explore plans</motion.h2>
