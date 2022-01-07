@@ -1,0 +1,7 @@
+.plan {
+  height: calc(100vh - 5rem);
+}
+
+.plan-semester {
+  width: 260px;
+}

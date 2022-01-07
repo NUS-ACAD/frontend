@@ -7,6 +7,8 @@ import Sidebar from '../../components/Sidebar';
 import SITE from '../../site.config';
 import MODULES from '../../data/moduleData';
 import ModuleCard from '../../components/ModuleCard';
+import Plan from '../../components/Plan';
+import { FAKE_PLAN } from '../../data/fakeData';
 
 const MODULE_ARRAY = Object.entries(MODULES);
 
@@ -54,6 +56,9 @@ function PlanCreate() {
         <motion.h1 className="text-2xl mb-4 font-semibold">
           Create Academic Plan
         </motion.h1>
+        <motion.div>
+          <Plan plan={FAKE_PLAN} />
+        </motion.div>
       </div>
     </Container>
   );

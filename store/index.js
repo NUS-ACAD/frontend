@@ -24,13 +24,13 @@ const addModuleHelper = (state, payload) => {
   }
   const existingSem = state.plan.semesters[index];
   const newModuleData = [
-    ...existingSem.modules.filter((m) => m.order < payload.order),
+    ...existingSem.mods.filter((m) => m.order < payload.order),
     {
       moduleCode: payload.moduleCode,
       moduleTitle: payload.moduleTitle,
       order: payload.order,
     },
-    ...existingSem.modules
+    ...existingSem.mods
       .filter((m) => m.order >= payload.order)
       .map((m) => ({ ...m, order: m.order + 1 })),
   ];
@@ -55,10 +55,10 @@ const removeModuleHelper = (state, payload) => {
     return;
   }
   const existingSem = state.plan.semesters[index];
-  const existingModule = existingSem.modules.filter(
+  const existingModule = existingSem.mods.filter(
     (m) => m.moduleCode === payload.moduleCode,
   );
-  const newModuleData = existingSem.modules
+  const newModuleData = existingSem.mods
     .filter((m) => m.moduleCode !== payload.moduleCode)
     .map((m) => ({
       ...m,
