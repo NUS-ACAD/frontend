@@ -37,6 +37,27 @@
   max-width: 432px;
 }
 
+.welcome-hero-background {
+  background-image: url('../assets/images/landing-cover.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+@media screen and (max-width: 1350px) {
+  .welcome-hero-background {
+    background-position: 550px 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .welcome-hero-background {
+    background-image: url('../assets/images/landing-cover-mobile.png');
+    background-size: cover;
+    background-position: center bottom;
+  }
+}
+
 .footer-divider {
   height: 3px;
   background: linear-gradient(

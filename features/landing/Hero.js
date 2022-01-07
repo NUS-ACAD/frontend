@@ -41,26 +41,6 @@ const InnerContentAnim = {
   },
 };
 
-// const ImageAnim = {
-//   hidden: {
-//     x: 100,
-//     opacity: 0,
-//   },
-//   show: {
-//     opacity: [0, 1, 1, 1],
-//     x: 0,
-
-//     transition: {
-//       duration: 2.5,
-//       delay: 1.2,
-//       type: 'spring',
-//       velocity: 100,
-//       stiffness: 700,
-//       damping: 100,
-//     },
-//   },
-// };
-
 const TitleAnim = {
   hidden: {
     y: 80,
@@ -121,25 +101,45 @@ const ButtonAnim = {
   },
 };
 
+const BackgroundAnim = {
+  hidden: {
+    x: 100,
+    opacity: 0,
+  },
+  show: {
+    opacity: [0, 1, 1, 1],
+    x: 0,
+
+    transition: {
+      duration: 2.5,
+      delay: 1.2,
+      type: 'spring',
+      velocity: 100,
+      stiffness: 700,
+      damping: 100,
+    },
+  },
+};
+
 function Hero({ setIsModalShown }) {
   return (
     <motion.div
       initial="hidden"
       animate="show"
       variants={OuterContainerAnim}
-      className="rounded-3xl w-full max-w-screen-2xl overflow-hidden welcome-hero mt-28 mb-8"
+      className="rounded-3xl w-full relative max-w-screen-2xl overflow-hidden welcome-hero mt-28 mb-8"
     >
       <motion.div
         initial="hidden"
         animate="show"
         variants={ContentContainerAnim}
-        className="w-full h-full px-8 md:px-24 flex flex-col items-start justify-start md:justify-center"
+        className="w-full h-full z-10 px-8 md:px-24 flex flex-col items-start justify-start md:justify-center"
       >
         <motion.div
           initial="hidden"
           animate="show"
           variants={InnerContentAnim}
-          className="flex flex-col mt-16 md:mt-0 items-center md:items-start"
+          className="flex flex-col z-10 mt-16 md:mt-0 items-center md:items-start"
         >
           <motion.h1
             initial="hidden"
@@ -169,6 +169,12 @@ function Hero({ setIsModalShown }) {
         </motion.div>
       </motion.div>
       {/* TODO: Add absolute background element */}
+      <motion.div
+        variants={BackgroundAnim}
+        initial="hidden"
+        animate="show"
+        className="h-full w-full absolute top-0 left-0 z-0 welcome-hero-background"
+      />
     </motion.div>
   );
 }
