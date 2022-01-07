@@ -6,7 +6,6 @@ const ApiService = axios.create({
   headers: { 'Content-Type': 'application/json' },
   transformResponse: [
     ...axios.defaults.transformResponse,
-
     (data) => humps.camelizeKeys(data), // takes care of case issues
   ],
   transformRequest: [
