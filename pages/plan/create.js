@@ -1,12 +1,38 @@
+import { debounce } from 'debounce';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Container from '../../components/Container';
 import Input from '../../components/Input';
 import Sidebar from '../../components/Sidebar';
 import SITE from '../../site.config';
+import MODULES from '../../data/modules';
+import ModuleCard from '../../components/ModuleCard';
+
+const MODULE_ARRAY = Object.entries(MODULES);
+
+function getRelevantModules(searchString) {
+  const loweredSearchString = searchString.toLowerCase();
+  return MODULE_ARRAY.filter((m) =>
+    m[0].toLowerCase().includes(loweredSearchString),
+  );
+}
 
 function PlanCreate() {
-  const [searchValue, setSearchValue] = useState('');
+  const [modules, setModules] = useState([]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const onSearchChange = useCallback(
+    debounce((value) => {
+      if (value == null || value === '') {
+        setModules([]);
+        return;
+      }
+      const relevantModules = getRelevantModules(value);
+      setModules(relevantModules);
+    }, 500),
+    [],
+  );
+
   return (
     <Container
       title={`Create Plan | ${SITE.title}`}
@@ -14,11 +40,15 @@ function PlanCreate() {
     >
       <Sidebar>
         <Input
-          className="mx-4"
-          value={searchValue}
-          onChange={setSearchValue}
+          className="mx-4 shrink-0 mb-1"
+          onChange={onSearchChange}
           placeholder="Search for modules"
         />
+        {modules.map((mod) => (
+          <div key={mod[0]} className="mx-4 mt-2">
+            <ModuleCard code={mod[0]} title={mod[1]} />
+          </div>
+        ))}
       </Sidebar>
       <div className="sidebar-right mt-8 pl-4">
         <motion.h1 className="text-2xl mb-4 font-semibold">
