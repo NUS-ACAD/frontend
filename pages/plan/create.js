@@ -5,7 +5,7 @@ import Container from '../../components/Container';
 import Input from '../../components/Input';
 import Sidebar from '../../components/Sidebar';
 import SITE from '../../site.config';
-import MODULES from '../../data/modules';
+import MODULES from '../../data/moduleData';
 import ModuleCard from '../../components/ModuleCard';
 
 const MODULE_ARRAY = Object.entries(MODULES);
@@ -46,7 +46,7 @@ function PlanCreate() {
         />
         {modules.map((mod) => (
           <div key={mod[0]} className="mx-4 mt-2">
-            <ModuleCard code={mod[0]} title={mod[1]} />
+            <ModuleCard code={mod[0]} title={mod[1].title} />
           </div>
         ))}
       </Sidebar>
