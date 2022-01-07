@@ -7,6 +7,8 @@ const SITE = {
     keywords: [],
   },
   ogImageGenerateURL: 'https://og-image-blue-one.vercel.app', // The link to generate OG image, don't end with a slash
+  gitHubURL: 'https://github.com/zhuhanming/acad-frontend',
+  contactEmail: 'hanming@huawen.com',
 };
 
 module.exports = SITE;

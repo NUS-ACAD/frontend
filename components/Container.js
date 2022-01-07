@@ -68,7 +68,7 @@ function Container({ children, padding = false, className = '', ...meta }) {
       />
       <main
         className={classNames(
-          'w-full flex flex-col m-auto bg-black min-h-screen',
+          'w-full flex flex-col bg-black min-h-screen',
           className,
           {
             'px-4 md:px-8': padding,
