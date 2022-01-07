@@ -1,7 +1,15 @@
 .plan {
-  height: calc(100vh - 5rem);
+  height: calc(100vh - 11rem);
 }
 
 .plan-semester {
   width: 260px;
+}
+
+.plan-create-name {
+  flex: 1;
+}
+
+.plan-create-description {
+  flex: 2;
 }

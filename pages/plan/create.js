@@ -10,6 +10,7 @@ import MODULES from '../../data/moduleData';
 import ModuleCard from '../../components/ModuleCard';
 import Plan from '../../components/Plan';
 import NotAllowed from '../../components/NotAllowed';
+import Button from '../../components/Button';
 
 const MODULE_ARRAY = Object.entries(MODULES);
 
@@ -26,7 +27,9 @@ function PlanCreate() {
   const plan = useStoreState((state) => state.plan);
   const addModule = useStoreActions((state) => state.addModule);
   const removeModule = useStoreActions((state) => state.removeModule);
-  // This will be a string
+  const updateTitle = useStoreActions((state) => state.updateTitle);
+  const updateDescription = useStoreActions((state) => state.updateDescription);
+  // This will be the module code
   const [selectedModule, setSelectedModule] = useState(null);
   const [shiftSource, setShiftSource] = useState(null);
 
@@ -159,9 +162,35 @@ function PlanCreate() {
         ))}
       </Sidebar>
       <div className="sidebar-right mt-8 pl-4">
-        <motion.h1 className="text-2xl mb-4 font-semibold">
-          Create Academic Plan
-        </motion.h1>
+        <div className="flex items-center justify-between pr-4 mb-4">
+          <motion.h1 className="text-2xl mr-4 font-semibold">
+            Create Academic Plan
+          </motion.h1>
+          <Button
+            label="Create"
+            className="blue-button"
+            isDisabled={
+              clonedPlan.title.length === 0 ||
+              clonedPlan.description.length === 0
+            }
+          />
+        </div>
+        <div className="flex pr-4 mb-8">
+          <Input
+            className="w-full mr-2 plan-create-name"
+            type="text"
+            value={clonedPlan.title}
+            onChange={updateTitle}
+            placeholder="Name"
+          />
+          <Input
+            className="w-full ml-2 plan-create-description"
+            type="text"
+            value={clonedPlan.description}
+            onChange={updateDescription}
+            placeholder="Description"
+          />
+        </div>
         <motion.div>
           <Plan
             plan={clonedPlan}

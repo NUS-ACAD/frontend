@@ -85,6 +85,14 @@ const store = createStore(
       startYear: 2019,
       semesters: [],
     },
+    updateTitle: action((state, payload) => {
+      // eslint-disable-next-line no-param-reassign
+      state.plan.title = payload;
+    }),
+    updateDescription: action((state, payload) => {
+      // eslint-disable-next-line no-param-reassign
+      state.plan.description = payload;
+    }),
     // Example payload: { year: 2019, semesterNo: 3, moduleCode: 'CS3216', moduleTitle: '...' }
     addModule: action((state, payload) => {
       addModuleHelper(state, payload);
