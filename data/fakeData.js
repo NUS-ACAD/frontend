@@ -29,7 +29,7 @@ export const FAKE_PLAN = {
       semesterNo: 1,
       createdAt: '2022-01-07T19:28:06.660Z',
       updatedAt: '2022-01-07T19:28:06.660Z',
-      mods: [
+      modules: [
         {
           id: 143,
           semesterId: 75,
@@ -59,7 +59,7 @@ export const FAKE_PLAN = {
       semesterNo: 2,
       createdAt: '2022-01-07T19:28:06.712Z',
       updatedAt: '2022-01-07T19:28:06.712Z',
-      mods: [
+      modules: [
         {
           id: 145,
           semesterId: 76,
@@ -89,7 +89,7 @@ export const FAKE_PLAN = {
       semesterNo: 4,
       createdAt: '2022-01-07T19:28:06.712Z',
       updatedAt: '2022-01-07T19:28:06.712Z',
-      mods: [
+      modules: [
         {
           id: 145,
           semesterId: 76,
@@ -119,7 +119,7 @@ export const FAKE_PLAN = {
       semesterNo: 3,
       createdAt: '2022-01-07T19:28:06.712Z',
       updatedAt: '2022-01-07T19:28:06.712Z',
-      mods: [
+      modules: [
         {
           id: 145,
           semesterId: 76,

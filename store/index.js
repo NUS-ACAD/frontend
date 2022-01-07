@@ -15,7 +15,7 @@ const addModuleHelper = (state, payload) => {
         {
           moduleCode: payload.moduleCode,
           moduleTitle: payload.moduleTitle,
-          order: payload.order, // should be 1
+          order: 1, // should be 1
         },
       ],
     };
@@ -24,15 +24,12 @@ const addModuleHelper = (state, payload) => {
   }
   const existingSem = state.plan.semesters[index];
   const newModuleData = [
-    ...existingSem.mods.filter((m) => m.order < payload.order),
+    ...existingSem.modules,
     {
       moduleCode: payload.moduleCode,
       moduleTitle: payload.moduleTitle,
-      order: payload.order,
+      order: existingSem.modules.length + 1,
     },
-    ...existingSem.mods
-      .filter((m) => m.order >= payload.order)
-      .map((m) => ({ ...m, order: m.order + 1 })),
   ];
   // eslint-disable-next-line no-param-reassign
   state.plan.semesters = [
@@ -55,10 +52,10 @@ const removeModuleHelper = (state, payload) => {
     return;
   }
   const existingSem = state.plan.semesters[index];
-  const existingModule = existingSem.mods.filter(
+  const existingModule = existingSem.modules.filter(
     (m) => m.moduleCode === payload.moduleCode,
   );
-  const newModuleData = existingSem.mods
+  const newModuleData = existingSem.modules
     .filter((m) => m.moduleCode !== payload.moduleCode)
     .map((m) => ({
       ...m,
@@ -88,7 +85,7 @@ const store = createStore(
       startYear: 2019,
       semesters: [],
     },
-    // Example payload: { year: 2019, semesterNo: 3, moduleCode: 'CS3216', moduleTitle: '...', order: 1 }
+    // Example payload: { year: 2019, semesterNo: 3, moduleCode: 'CS3216', moduleTitle: '...' }
     addModule: action((state, payload) => {
       addModuleHelper(state, payload);
     }),

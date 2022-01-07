@@ -3,7 +3,13 @@ import YearColumn from './YearColumn';
 // This is a plan with drag and drop.
 // The plan props comes from the redux store, i.e. if you change the redux
 // store interface, please change it here too.
-function Plan({ plan }) {
+function Plan({
+  plan,
+  confirmAddition,
+  onClickModule,
+  selectedModule,
+  shiftSource,
+}) {
   // Assumption: start year of plan === user start year
   const years = [
     plan.startYear,
@@ -14,6 +20,7 @@ function Plan({ plan }) {
   if (plan.semesters.some((sem) => sem.year === plan.startYear + 4)) {
     years.push(plan.startYear + 4);
   }
+
   return (
     <div className="overflow-x-auto plan">
       <div className="flex">
@@ -22,6 +29,10 @@ function Plan({ plan }) {
             key={year}
             year={year}
             semesters={plan.semesters.filter((sem) => sem.year === year)}
+            confirmAddition={confirmAddition}
+            selectedModule={selectedModule}
+            shiftSource={shiftSource}
+            onClickModule={onClickModule}
           />
         ))}
       </div>

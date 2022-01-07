@@ -1,7 +1,14 @@
-function ModuleCard({ code, title, semesters }) {
+import classNames from 'classnames';
+
+function ModuleCard({ code, title, semesters, isSelected = false }) {
   return (
     <div
-      className="flex flex-col p-2 rounded-lg sidebar-card"
+      className={classNames(
+        'flex flex-col p-2 rounded-lg sidebar-card cursor-pointer',
+        {
+          'animate-bounce z-500': isSelected,
+        },
+      )}
       style={{ backgroundColor: '#201F28' }}
     >
       <div className="text-s font-semibold mb-1 sidebar-card-title">{code}</div>

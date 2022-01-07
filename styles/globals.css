@@ -28,3 +28,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.z-500 {
+  z-index: 500;
+}

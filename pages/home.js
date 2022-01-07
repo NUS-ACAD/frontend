@@ -15,7 +15,7 @@ function Home() {
   const timeOfDay = hour < 12 ? 'Morning' : hour < 17 ? 'Afternoon' : 'Evening';
   const user = useStoreState((state) => state.user);
 
-  if (!user) {
+  if (user == null) {
     return <NotAllowed />;
   }
 
