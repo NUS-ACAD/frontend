@@ -105,7 +105,7 @@ export function fulfillabilityIndex(myAcadPlan, otherAcadPlan) {
   return total / myTotalMods;
 }
 
-function rankByfulfillability(myAcadPlan, otherAcadPlans) {
+export function rankByfulfillability(myAcadPlan, otherAcadPlans) {
   otherAcadPlans.sort((a, b) => fulfillabilityIndex(myAcadPlan, b) - fulfillabilityIndex(myAcadPlan, a))
   return otherAcadPlans;
 }
