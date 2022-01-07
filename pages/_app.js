@@ -1,8 +1,13 @@
+import { SkeletonTheme } from 'react-loading-skeleton';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
   // TODO: Add providers here
-  return <Component {...pageProps} />;
+  return (
+    <SkeletonTheme baseColor="#1B1923" highlightColor="#282131">
+      <Component {...pageProps} />
+    </SkeletonTheme>
+  );
 }
 
 export default MyApp;

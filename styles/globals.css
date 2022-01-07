@@ -3,10 +3,12 @@
 @tailwind utilities;
 
 @import './button.css';
-@import './modal.css';
 @import './form.css';
 @import './landing.css';
+@import './modal.css';
+@import './plancard.css';
 @import './register.css';
+@import './sidebar.css';
 
 html,
 body {

@@ -1,0 +1,8 @@
+.sidebar {
+  height: calc(100% - 2rem);
+  width: 260px;
+}
+
+.sidebar-right {
+  margin-left: 276px;
+}

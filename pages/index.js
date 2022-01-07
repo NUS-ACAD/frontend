@@ -17,6 +17,7 @@ function Landing() {
         title={SITE.title}
         description={SITE.description}
         padding
+        isBlackBg
       >
         <Hero setIsModalShown={setIsModalShown} />
         <Footer />

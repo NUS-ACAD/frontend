@@ -5,7 +5,13 @@ import { useMemo } from 'react';
 import SITE from '../site.config';
 import getOgImageUrl from '../utils/getOgImageUrl';
 
-function Container({ children, padding = false, className = '', ...meta }) {
+function Container({
+  children,
+  isBlackBg = false,
+  padding = false,
+  className = '',
+  ...meta
+}) {
   const router = useRouter();
   const root = useMemo(() => router.pathname === '/', [router]);
   const siteUrl = useMemo(() => {
@@ -67,13 +73,10 @@ function Container({ children, padding = false, className = '', ...meta }) {
         }}
       />
       <main
-        className={classNames(
-          'w-full flex flex-col bg-black min-h-screen',
-          className,
-          {
-            'px-4 md:px-8': padding,
-          },
-        )}
+        className={classNames('w-full flex flex-col min-h-screen', className, {
+          'px-4 md:px-8': padding,
+        })}
+        style={{ backgroundColor: isBlackBg ? 'black' : '#252332' }}
       >
         {children}
       </main>
