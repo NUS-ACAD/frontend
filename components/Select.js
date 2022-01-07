@@ -28,11 +28,11 @@ function Select({
             'cursor-not-allowed': isDisabled,
           },
         )}
-        value={selectedOption?.value ?? placeholder}
+        value={selectedOption?.value ?? ''}
         onChange={handleChange}
         disabled={isDisabled}
       >
-        <option value={placeholder} disabled={!isOptional}>
+        <option value="" disabled={!isOptional} selected>
           {placeholder}
         </option>
         {options.map((option) => (

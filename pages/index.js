@@ -18,7 +18,7 @@ function Landing() {
         description={SITE.description}
         padding
       >
-        <Hero />
+        <Hero setIsModalShown={setIsModalShown} />
         <Footer />
       </Container>
       <LoginModal isShown={isModalShown} setIsShown={setIsModalShown} />

@@ -121,7 +121,7 @@ const ButtonAnim = {
   },
 };
 
-function Hero() {
+function Hero({ setIsModalShown }) {
   return (
     <motion.div
       initial="hidden"
@@ -163,6 +163,7 @@ function Hero() {
               label="Get Started"
               icon={<Arrow />}
               className="blue-button"
+              onClick={() => setIsModalShown(true)}
             />
           </motion.div>
         </motion.div>

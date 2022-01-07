@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
@@ -18,6 +19,8 @@ import Select from '../../components/Select';
 import DEGREES from '../../data/degrees';
 import MAJORS from '../../data/majors';
 import MINORS from '../../data/minors';
+import { register } from '../../services/auth';
+import tokenUtils from '../../utils/token';
 
 const SubtitleAnim = {
   hidden: {
@@ -159,6 +162,7 @@ function RegisterModal() {
   const [page, setPage] = useState(0);
   const [nextPageDisabled, setNextPageDisabled] = useState(true);
   const [registerDisabled, setRegisterDisabled] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     if (
@@ -202,7 +206,7 @@ function RegisterModal() {
     setPage(0);
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (
       !validateEmail(email) ||
       !validatePassword(password) ||
@@ -217,7 +221,25 @@ function RegisterModal() {
       return;
     }
     setIsLoading(true);
-    // TODO: Post data over to backend
+    await register({
+      name,
+      email,
+      password,
+      primaryDegree,
+      secondDegree,
+      secondMajor,
+      firstMinor,
+      secondMinor,
+      matriculationYear,
+    })
+      .then((data) => {
+        // TODO: Handle the returned user data
+        tokenUtils.storeToken(data.token);
+        router.push('/home');
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   };
 
   return (

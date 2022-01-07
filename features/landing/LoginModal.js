@@ -1,12 +1,15 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
 import SITE from '../../site.config';
 import Arrow from '../../assets/svgr/ButtonArrow';
 import { validateEmail, validatePassword } from '../../utils/validations';
+import { login } from '../../services/auth';
+import tokenUtils from '../../utils/token';
 
 const SubtitleAnim = {
   hidden: {
@@ -69,6 +72,7 @@ function LoginModal({ isShown, setIsShown }) {
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const setIsShownWrapper = (newIsShown) => {
     if (!newIsShown) {
@@ -88,12 +92,20 @@ function LoginModal({ isShown, setIsShown }) {
     }
   }, [email, password]);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!validateEmail(email) || !validatePassword(password)) {
       return;
     }
     setIsLoading(true);
-    // TODO: Make the API call with the data
+    await login({ email, password })
+      .then((data) => {
+        // TODO: Handle the returned user data
+        tokenUtils.storeToken(data.token);
+        router.push('/home');
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   };
 
   return (

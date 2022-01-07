@@ -2,7 +2,7 @@ import axios from 'axios';
 import humps from 'humps';
 
 const ApiService = axios.create({
-  baseURL: `${process.env.BACKEND_API}`,
+  baseURL: `${process.env.NEXT_PUBLIC_BACKEND_API}`,
   headers: { 'Content-Type': 'application/json' },
   transformResponse: [
     ...axios.defaults.transformResponse,
