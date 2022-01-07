@@ -30,9 +30,15 @@ function Sidebar({ children }) {
         variants={BackgroundAnim}
         initial="hidden"
         animate="show"
-        className="font-black text-2xl m-4"
+        className="flex items-center"
       >
-        {SITE.title}
+        <h1 className="font-black text-2xl ml-4 my-4 mr-1">{SITE.title}</h1>
+        <div
+          className="text-xs font-semibold py-1 px-2 rounded-lg"
+          style={{ backgroundColor: '#ed506e', transform: 'scale(0.7)' }}
+        >
+          BETA
+        </div>
       </motion.div>
       {children}
     </div>

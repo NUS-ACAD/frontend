@@ -4,10 +4,10 @@ import Fork from '../../assets/svgr/Fork';
 function PlanCard({ plan }) {
   return (
     <div
-      className="flex flex-col p-2 rounded-lg plan-card"
+      className="flex flex-col p-2 rounded-lg sidebar-card"
       style={{ backgroundColor: '#201F28' }}
     >
-      <div className="text-s font-semibold mb-2 plan-card-title">
+      <div className="text-s font-semibold mb-2 sidebar-card-title">
         {plan.name}
       </div>
       <div className="text-xs mb-2">{plan.description}</div>

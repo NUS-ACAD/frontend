@@ -1,5 +1,7 @@
 import { SkeletonTheme } from 'react-loading-skeleton';
 import '../styles/globals.css';
+// eslint-disable-next-line import/imports-first
+import 'react-loading-skeleton/dist/skeleton.css';
 
 function MyApp({ Component, pageProps }) {
   // TODO: Add providers here

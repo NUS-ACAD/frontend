@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Sidebar from '../components/Sidebar';
 import { FAKE_GROUP_BRIEF, FAKE_PLAN_BRIEF } from '../data/fakeData';
 import SITE from '../site.config';
@@ -16,9 +17,17 @@ function Home() {
         <SidebarContent plan={FAKE_PLAN_BRIEF} group={FAKE_GROUP_BRIEF} />
       </Sidebar>
       <div className="sidebar-right mt-8 pl-4">
-        <h1 className="text-2xl">
+        <motion.h1 className="text-2xl mb-4">
           Good {timeOfDay}, <strong>Hanming</strong>!
-        </h1>
+        </motion.h1>
+        <div className="w-full flex">
+          <div className="flex flex-col home-activity-feed">
+            <motion.h2 className="mb-2">All activity</motion.h2>
+          </div>
+          <div className="flex flex-col home-recommendations">
+            <motion.h2 className="font-semibold mb-2">Explore plans</motion.h2>
+          </div>
+        </div>
       </div>
     </Container>
   );
