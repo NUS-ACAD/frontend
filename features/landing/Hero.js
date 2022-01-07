@@ -145,7 +145,7 @@ function Hero({ setIsModalShown }) {
             initial="hidden"
             animate="show"
             variants={TitleAnim}
-            className="text-5xl md:text-7xl mb-2.5 md:mb-8 font-bold welcome-hero-title text-center md:text-left"
+            className="text-2xl sm:text-5xl md:text-7xl mb-2.5 md:mb-8 font-bold welcome-hero-title text-center md:text-left"
           >
             The academic planner you never knew you needed.
           </motion.h1>
@@ -153,7 +153,7 @@ function Hero({ setIsModalShown }) {
             initial="hidden"
             animate="show"
             variants={SubtitleAnim}
-            className="text-xl md:text-2xl mb-8 md:leading-normal font-semibold welcome-hero-subtitle text-center md:text-left"
+            className="text-lg sm:text-xl md:text-2xl mb-8 md:leading-normal font-semibold welcome-hero-subtitle text-center md:text-left"
           >
             Plan your university journey together with your friends effortlessly
             now.
