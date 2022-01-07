@@ -1,6 +1,8 @@
 import axios from 'axios';
 import humps from 'humps';
 
+import tokenUtils from '../utils/token';
+
 const ApiService = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_BACKEND_API}`,
   headers: { 'Content-Type': 'application/json' },
@@ -16,11 +18,12 @@ const ApiService = axios.create({
 
 ApiService.interceptors.request.use(
   (config) => {
-    const newConfig = { ...config };
-    if (config.params) {
-      newConfig.params = humps.decamelizeKeys(config.params);
+    if (typeof window !== 'undefined') {
+      const token = tokenUtils.getToken();
+      // eslint-disable-next-line no-param-reassign
+      if (token) config.headers.Authorization = `Bearer ${token}`;
     }
-    return newConfig;
+    return config;
   },
   // eslint-disable-next-line consistent-return
   (error) => {
