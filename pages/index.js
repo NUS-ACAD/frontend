@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import SITE from '../site.config';
 
 import Arrow from '../assets/svgr/ButtonArrow';
+import Button from '../components/Button';
 
 export default function Welcome() {
   return (
@@ -24,15 +25,11 @@ export default function Welcome() {
                 Plan your university journey together with your friends
                 effortlessly now.
               </h2>
-              <button
-                className="text-white p-4 flex justify-center items-center rounded-lg welcome-hero-button"
-                type="button"
-              >
-                Get Started
-                <div className="ml-2.5">
-                  <Arrow />
-                </div>
-              </button>
+              <Button
+                label="Get Started"
+                icon={<Arrow />}
+                className="blue-button"
+              />
             </div>
           </div>
           {/* TODO: Add absolute background element */}

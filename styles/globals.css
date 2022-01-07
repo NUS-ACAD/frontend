@@ -50,6 +50,7 @@ a {
   max-width: 432px;
 }
 
-.welcome-hero-button {
+.blue-button {
+  color: white;
   background-color: rgb(0, 8, 96);
 }
