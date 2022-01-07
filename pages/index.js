@@ -6,7 +6,7 @@ import Hero from '../features/landing/Hero';
 import LoginModal from '../features/landing/LoginModal';
 import SITE from '../site.config';
 
-export default function Landing() {
+function Landing() {
   const [isModalShown, setIsModalShown] = useState(false);
 
   return (
@@ -25,3 +25,5 @@ export default function Landing() {
     </>
   );
 }
+
+export default Landing;

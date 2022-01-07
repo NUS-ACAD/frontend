@@ -1,7 +1,25 @@
-.input {
+.input,
+.select {
   height: 52px;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.25) !important;
   line-height: 24px;
   font-size: 16px;
   border: 2px solid rgb(42, 42, 42);
+}
+
+.select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: '▼';
+  font-size: 0.6rem;
+  top: 19px;
+  right: 1.5rem;
+  position: absolute;
 }

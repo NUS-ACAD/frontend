@@ -5,7 +5,7 @@ import GitHub from '../../assets/svgr/GitHub';
 
 function Footer() {
   return (
-    <div className="w-full px-4 md:px-32 flex justify-center">
+    <div className="w-full md:px-24 flex justify-center">
       <footer className="w-full mt-4 mb-6 max-w-screen-2xl">
         <div className="w-full flex items-center justify-between">
           <div className="font-black text-2xl">ACAD</div>

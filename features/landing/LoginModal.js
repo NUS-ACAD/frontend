@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
 import SITE from '../../site.config';
 import Arrow from '../../assets/svgr/ButtonArrow';
+import { validateEmail, validatePassword } from '../../utils/validations';
 
 const SubtitleAnim = {
   hidden: {
@@ -62,20 +64,11 @@ const ButtonsAnim = {
   },
 };
 
-function validateEmail(email) {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
-}
-
-function validatePassword(password) {
-  return password.length >= 8;
-}
-
 function LoginModal({ isShown, setIsShown }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const setIsShownWrapper = (newIsShown) => {
     if (!newIsShown) {
@@ -83,6 +76,7 @@ function LoginModal({ isShown, setIsShown }) {
       setEmail('');
       setPassword('');
       setIsDisabled(true);
+      setIsLoading(false);
     }
   };
 
@@ -94,11 +88,20 @@ function LoginModal({ isShown, setIsShown }) {
     }
   }, [email, password]);
 
+  const handleLogin = () => {
+    if (!validateEmail(email) || !validatePassword(password)) {
+      return;
+    }
+    setIsLoading(true);
+    // TODO: Make the API call with the data
+  };
+
   return (
     <Modal
       isShown={isShown}
       setIsShown={setIsShownWrapper}
       title="Welcome Back!"
+      canHide={!isLoading}
     >
       <motion.div
         variants={SubtitleAnim}
@@ -120,20 +123,21 @@ function LoginModal({ isShown, setIsShown }) {
           onChange={setEmail}
           className="w-full mb-2"
           placeholder="Email"
+          isDisabled={isLoading}
         />
       </motion.div>
       <motion.div
         variants={PasswordAnim}
         initial="hidden"
         animate={isShown ? 'show' : 'hidden'}
-        className="mb-4"
       >
         <Input
           type="password"
           value={password}
           onChange={setPassword}
-          className="w-full"
+          className="w-full mb-6"
           placeholder="Password"
+          isDisabled={isLoading}
         />
       </motion.div>
       <motion.div
@@ -142,14 +146,27 @@ function LoginModal({ isShown, setIsShown }) {
         animate={isShown ? 'show' : 'hidden'}
         className="flex justify-between items-center"
       >
-        <button className="text-sm" style={{ color: '#E17D8A' }} type="button">
-          Create an account
-        </button>
+        {isLoading ? (
+          <div
+            className="text-sm opacity-50 cursor-not-allowed"
+            style={{ color: 'rgb(208, 208, 208)' }}
+          >
+            Create an account
+          </div>
+        ) : (
+          <Link href="/register" passHref>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <a className="text-sm" style={{ color: '#E17D8A' }}>
+              Create an account
+            </a>
+          </Link>
+        )}
         <Button
           label="Login"
           icon={<Arrow />}
           className="blue-button"
-          onClick={() => undefined}
+          onClick={handleLogin}
+          isLoading={isLoading}
           isDisabled={isDisabled}
         />
       </motion.div>
