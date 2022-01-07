@@ -16,7 +16,7 @@ const HeaderAnim = {
   },
 };
 
-function Header() {
+function Header({ setIsModalShown }) {
   return (
     <motion.div
       initial="hidden"
@@ -26,7 +26,12 @@ function Header() {
     >
       <div className="w-full max-w-screen-2xl flex items-center justify-between">
         <div className="font-black text-2xl">ACAD</div>
-        <Button label="Login" icon={<Arrow />} className="blue-button" />
+        <Button
+          label="Login"
+          icon={<Arrow />}
+          className="blue-button"
+          onClick={() => setIsModalShown(true)}
+        />
       </div>
     </motion.div>
   );
