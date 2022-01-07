@@ -39,7 +39,7 @@ export function validateMatriculationYear(year) {
  * @return {boolean} Whether prereqs are met.
  */
 export function meetPrereqs(myMods, modToCheck) {
-  prereqTree = MODULE_DATA[modToCheck]["prereqs"];
+  const prereqTree = MODULE_DATA[modToCheck]["prereqs"];
   function helper(tree) {
     if (typeof(tree) === "string") {
       return myMods.has(tree)
@@ -69,4 +69,43 @@ export function meetPrereqs(myMods, modToCheck) {
     }
   }
   return helper(prereqTree)
+}
+
+export function fulfillabilityIndex(myAcadPlan, otherAcadPlan) {
+  const mySems = myAcadPlan["semesters"];
+  const otherSems = otherAcadPlan["semesters"];
+
+  const myDict = {};
+  const otherDict = {};
+  let myTotalMods = 0;
+  for (const sem in mySems) {
+    const thisSemMods = new Set();
+    for (const mod in sem["modules"]) {
+      thisSemMods.add(mod["moduleCode"]);
+    }
+    myTotalMods += thisSemMods.length;
+    myDict[sem["year"] + sem["semesterNo"]/10] = thisSemMods;
+  }
+  for (const sem in otherSems) {
+    const otherSemMods = new Set();
+    for (const mod in sem["modules"]) {
+      otherSemMods.add(mod["moduleCode"]);
+    }
+    otherDict[sem["year"] + sem["semesterNo"]/10] = otherSemMods;
+  }
+  const delta = otherAcadPlan["startYear"] - myAcadPlan["startYear"];
+  let total = 0;
+
+  for (const year in myDict) {
+    if (otherDict.has(year + delta)) {
+      let intersect = new Set([...myDict].filter(i => otherDict.has(i)));
+      total += intersect.length;
+    }
+  }
+  return total / myTotalMods;
+}
+
+function rankByfulfillability(myAcadPlan, otherAcadPlans) {
+  otherAcadPlans.sort((a, b) => fulfillabilityIndex(myAcadPlan, b) - fulfillabilityIndex(myAcadPlan, a))
+  return otherAcadPlans;
 }
