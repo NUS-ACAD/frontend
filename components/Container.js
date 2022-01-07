@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import SITE from '../site.config';
 import getOgImageUrl from '../utils/getOgImageUrl';
 
-function Container({ children, fullWidth, ...meta }) {
+function Container({ children, padding = false, className = '', ...meta }) {
   const router = useRouter();
   const root = useMemo(() => router.pathname === '/', [router]);
   const siteUrl = useMemo(() => {
@@ -67,10 +67,13 @@ function Container({ children, fullWidth, ...meta }) {
         }}
       />
       <main
-        className={classNames('', {
-          'full-width classes': fullWidth,
-          'non-full-width classes': !fullWidth,
-        })}
+        className={classNames(
+          'w-full flex flex-col m-auto bg-black min-h-screen',
+          className,
+          {
+            'px-4 md:px-8': padding,
+          },
+        )}
       >
         {children}
       </main>
