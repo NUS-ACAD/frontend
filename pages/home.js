@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useStoreState } from 'easy-peasy';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Sidebar from '../components/Sidebar';
 import SITE from '../site.config';
 
@@ -38,6 +39,7 @@ function Home() {
   const user = useStoreState((state) => state.user);
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     let didCancel = false;
@@ -141,7 +143,10 @@ function Home() {
                 initial="hidden"
                 animate="show"
                 key={recc.id}
-                className="mb-2"
+                className="mb-2 cursor-pointer"
+                onClick={() => {
+                  router.push(`/profile/${recc.ownerId}`);
+                }}
               >
                 <PlanCard plan={recc} />
               </motion.div>
