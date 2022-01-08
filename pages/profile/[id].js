@@ -54,7 +54,9 @@ function Profile() {
     // TODO:
   };
 
-  const plan = data?.userPlan;
+  const plan = data?.userPlans?.filter((userPlan) => userPlan.isPrimary);
+
+  const isSelf = data?.userData?.id === user.id;
 
   return (
     <Container
@@ -89,11 +91,13 @@ function Profile() {
             <People className="mr-2" /> {data?.userData?.noOfFollowers}{' '}
             followers | {data?.userData?.noOfFollowing} following
           </div>
-          <Button
-            label="Follow"
-            className="pink-button mb-6"
-            onClick={onFollow}
-          />
+          {isSelf ? null : (
+            <Button
+              label="Follow"
+              className="pink-button mb-6"
+              onClick={onFollow}
+            />
+          )}
         </div>
         {plan && (
           <div className="mx-4">
@@ -103,12 +107,12 @@ function Profile() {
       </Sidebar>
       <div className="sidebar-right mt-8 pl-4">
         <motion.h1 className="text-2xl mr-4 font-semibold mb-4">
-          {plan?.title ?? data?.userData?.id === user.id
+          {plan?.title ?? isSelf
             ? "You don't have a plan yet!"
             : 'This user does not have a plan yet!'}
         </motion.h1>
         <motion.h1 className="text-lg mr-4 mb-8">
-          {plan?.description ?? data?.userData?.id === user.id
+          {plan?.description ?? isSelf
             ? 'Get started now!'
             : 'Perhaps you can let them witness your awesome plan?'}
         </motion.h1>
