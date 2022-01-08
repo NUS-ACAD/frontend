@@ -53,8 +53,13 @@ function SidebarContent({ plan, group, activities, isLoading }) {
         animate="show"
         className="mx-4 mb-2"
       >
-        {plan == null || isLoading ? (
+        {/* eslint-disable-next-line no-nested-ternary */}
+        {isLoading ? (
           <SidebarCardGhost height={108} />
+        ) : plan == null ? (
+          <div className="text-sm" style={{ color: '#7B7B81' }}>
+            You don&apos;t have any academic plans! Create one or fork one now!
+          </div>
         ) : (
           <PlanCard plan={plan} />
         )}
@@ -75,10 +80,10 @@ function SidebarContent({ plan, group, activities, isLoading }) {
         variants={generateAnim(0.4)}
         initial="hidden"
         animate="show"
-        className="font-bold mx-4 mb-2 text-lg"
+        className="font-bold mx-4 mb-2 text-lg flex items-center"
         style={{ color: '#7B7B81' }}
       >
-        GROUPS
+        GROUPS <Plus className="ml-1" />
       </motion.h2>
       <motion.div
         variants={generateAnim(0.5)}
@@ -86,8 +91,13 @@ function SidebarContent({ plan, group, activities, isLoading }) {
         animate="show"
         className="mx-4 mb-2"
       >
-        {group == null || isLoading ? (
+        {/* eslint-disable-next-line no-nested-ternary */}
+        {isLoading ? (
           <SidebarCardGhost height={108} />
+        ) : group == null ? (
+          <div className="text-sm" style={{ color: '#7B7B81' }}>
+            You&apos;re not in any groups! Create one or join one now!
+          </div>
         ) : (
           <GroupCard group={group} />
         )}
@@ -122,6 +132,18 @@ function SidebarContent({ plan, group, activities, isLoading }) {
             <MyActivity activity={activity} isLast={index === 2} />
           </motion.div>
         ))}
+      {!isLoading && (!activities || activities.length === 0) && (
+        <motion.div
+          variants={generateAnim(0.8)}
+          initial="hidden"
+          animate="show"
+          className="mx-4 mb-2 text-sm"
+          style={{ color: '#7B7B81' }}
+        >
+          You have no recent activity! Get started by doing (literally) anything
+          now!
+        </motion.div>
+      )}
     </SkeletonTheme>
   );
 }

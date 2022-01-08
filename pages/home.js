@@ -64,7 +64,7 @@ function Home() {
       </Sidebar>
       <div className="sidebar-right mt-8 px-4">
         <motion.h1 className="text-2xl mb-4">
-          Good {timeOfDay}, <strong>Hanming</strong>!
+          Good {timeOfDay}, <strong>{user.name}</strong>!
         </motion.h1>
         <div className="w-full flex">
           <div className="flex flex-col home-activity-feed mr-4">
