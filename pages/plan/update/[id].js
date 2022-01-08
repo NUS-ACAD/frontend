@@ -93,6 +93,9 @@ function PlanUpdate() {
     const moduleData = MODULES[selectedModule];
     Array.from(new Set(moduleData.semesters)).forEach((sem) => {
       [0, 1, 2, 3, 4].forEach((year) => {
+        if (clonedPlan.semesters == null) {
+          clonedPlan.semesters = [];
+        }
         const semesterIndex = clonedPlan.semesters.findIndex(
           (semester) =>
             semester.year === user.matriculationYear + year &&

@@ -74,7 +74,7 @@ function StatelessPlan({ plan }) {
           <StatelessYearColumn
             key={year}
             year={year}
-            semesters={plan.semesters.filter((sem) => sem.year === year)}
+            semesters={plan.semesters?.filter((sem) => sem.year === year)}
           />
         ))}
       </div>

@@ -84,11 +84,11 @@ export function updateModuleValidity(acadPlan) {
   const myMods = new Set();
 
   // sorting by semester
-  acadPlan.semesters.sort(
+  acadPlan.semesters?.sort(
     (a, b) => a.year * 10 + a.semesterNo - b.year * 10 - b.semesterNo,
   );
 
-  for (let i = 0; i < acadPlan.semesters.length - 1; i += 1) {
+  for (let i = 0; i < (acadPlan.semesters?.length ?? 0) - 1; i += 1) {
     const sem = acadPlan.semesters[i];
     const nextSem = acadPlan.semesters[i + 1];
     for (let j = 0; j < sem.modules.length; j += 1) {
@@ -124,7 +124,7 @@ export function updateModuleValidity(acadPlan) {
     }
   }
 
-  if (acadPlan.semesters.length > 0) {
+  if ((acadPlan.semesters?.length ?? 0) > 0) {
     const firstSem = acadPlan.semesters[0];
     // eslint-disable-next-line no-restricted-syntax, guard-for-in
     for (const m in firstSem.modules) {

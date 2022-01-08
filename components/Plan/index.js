@@ -29,7 +29,7 @@ function Plan({
           <YearColumn
             key={year}
             year={year}
-            semesters={plan.semesters.filter((sem) => sem.year === year)}
+            semesters={plan.semesters?.filter((sem) => sem.year === year)}
             confirmAddition={confirmAddition}
             selectedModule={selectedModule}
             shiftSource={shiftSource}
