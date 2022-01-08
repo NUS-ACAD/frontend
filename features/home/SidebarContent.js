@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import Link from 'next/link';
+import { useStoreState } from 'easy-peasy';
 import GroupCard from '../../components/GroupCard';
 import PlanCard from '../../components/PlanCard';
 import SidebarCardGhost from '../../components/SidebarCardGhost';
@@ -27,6 +28,8 @@ const generateAnim = (delay) => ({
 });
 
 function SidebarContent({ plan, group, activities, isLoading }) {
+  const user = useStoreState((state) => state.user);
+
   return (
     <SkeletonTheme baseColor="#201F28" highlightColor="#332D3B">
       <motion.h2
@@ -63,7 +66,10 @@ function SidebarContent({ plan, group, activities, isLoading }) {
         className="mx-4 mb-4 text-xs"
         style={{ color: '#E17D8A' }}
       >
-        View More
+        <Link href={`/profile/${user.id}`} passHref>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a>View More</a>
+        </Link>
       </motion.div>
       <motion.h2
         variants={generateAnim(0.4)}

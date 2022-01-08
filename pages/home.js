@@ -52,7 +52,11 @@ function Home() {
     <Container title={`Home | ${SITE.title}`} description={SITE.description}>
       <Sidebar>
         <SidebarContent
-          plan={data?.plans?.filter((plan) => plan.isPrimary)}
+          plan={
+            data?.plans?.filter((plan) => plan.isPrimary).length > 0
+              ? data?.plans?.filter((plan) => plan.isPrimary)[0]
+              : null
+          }
           group={data?.groups?.length > 0 ? data.groups[0] : null}
           activities={data?.recentActivities}
           isLoading={isLoading}

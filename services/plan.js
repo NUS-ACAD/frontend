@@ -1,7 +1,7 @@
 import ApiService from './apiService';
 
 export const forkPlan = async ({ id }) => {
-  const response = await ApiService.post(`/fork/${id}`);
+  const response = await ApiService.post(`/api/fork/${id}`);
   return response.data;
 };
 
@@ -12,7 +12,7 @@ export const createPlan = async ({
   description,
   semesters,
 }) => {
-  const response = await ApiService.post('plans', {
+  const response = await ApiService.post('/api/plans', {
     isPrimary,
     startYear,
     title,
@@ -30,7 +30,7 @@ export const updatePlan = async ({
   description,
   semesters,
 }) => {
-  const response = await ApiService.put(`plans/${id}`, {
+  const response = await ApiService.patch(`/api/plans/${id}`, {
     isPrimary,
     startYear,
     title,
@@ -41,11 +41,11 @@ export const updatePlan = async ({
 };
 
 export const deletePlan = async ({ id }) => {
-  const response = await ApiService.delete(`plans/${id}`);
+  const response = await ApiService.delete(`/api/plans/${id}`);
   return response.data;
 };
 
 export const getPlan = async ({ id }) => {
-  const response = await ApiService.get(`plans/${id}`);
+  const response = await ApiService.get(`/api/plans/${id}`);
   return response.data;
 };

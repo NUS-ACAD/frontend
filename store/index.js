@@ -85,6 +85,10 @@ const store = createStore(
       startYear: 2019,
       semesters: [],
     },
+    setPlan: action((state, payload) => {
+      // eslint-disable-next-line no-param-reassign
+      state.plan = payload;
+    }),
     updateTitle: action((state, payload) => {
       // eslint-disable-next-line no-param-reassign
       state.plan.title = payload;

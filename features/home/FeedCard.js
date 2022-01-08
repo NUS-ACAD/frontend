@@ -23,8 +23,10 @@ function FeedCard({ activity }) {
               className="rounded-full profile-pic z-10"
             />
             <div
-              className="rounded-full absolute top-0 profile-pic-background"
+              className="rounded-full absolute top-0"
               style={{
+                height: 35,
+                width: 35,
                 backgroundColor:
                   colors[Math.floor(Math.random() * colors.length)],
               }}

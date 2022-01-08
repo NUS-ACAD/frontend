@@ -1,7 +1,7 @@
 import ApiService from './apiService';
 
 export const createGroup = async ({ name, description }) => {
-  const response = await ApiService.post('groups', {
+  const response = await ApiService.post('/api/groups', {
     groupName: name,
     groupDescription: description,
   });
@@ -17,12 +17,12 @@ export const createGroup = async ({ name, description }) => {
 // };
 
 export const deleteGroup = async ({ id }) => {
-  const response = await ApiService.delete(`groups/${id}`);
+  const response = await ApiService.delete(`/api/groups/${id}`);
   return response.data;
 };
 
 export const getGroup = async ({ id }) => {
-  const response = await ApiService.get(`groups/${id}`);
+  const response = await ApiService.get(`/api/groups/${id}`);
   return response.data;
 };
 
