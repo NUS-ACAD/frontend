@@ -18,6 +18,9 @@ import { createPlan } from '../../services/plan';
 const MODULE_ARRAY = Object.entries(MODULES);
 
 function getRelevantModules(searchString) {
+  if (!searchString) {
+    return [];
+  }
   const loweredSearchString = searchString.toLowerCase();
   return MODULE_ARRAY.filter((m) =>
     m[0].toLowerCase().includes(loweredSearchString),
@@ -189,7 +192,8 @@ function PlanCreate() {
               title={mod[1].title}
               isSelected={
                 shiftSource == null &&
-                selectedModule?.toLowerCase() === mod[0].toLowerCase()
+                selectedModule &&
+                selectedModule.toLowerCase() === mod[0].toLowerCase()
               }
             />
           </div>
