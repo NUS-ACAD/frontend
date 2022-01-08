@@ -99,11 +99,11 @@ function Profile() {
             />
           )}
         </div>
-        {plan && (
+        {plan != null ? (
           <div className="mx-4">
             <PlanCard plan={plan} />
           </div>
-        )}
+        ) : null}
       </Sidebar>
       <div className="sidebar-right mt-8 pl-4">
         <motion.h1 className="text-2xl mr-4 font-semibold mb-4">
