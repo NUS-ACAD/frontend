@@ -116,11 +116,11 @@ function Profile() {
             ? 'Get started now!'
             : 'Perhaps you can let them witness your awesome plan?'}
         </motion.h1>
-        {plan && (
+        {plan != null ? (
           <motion.div>
             <StatelessPlan plan={plan} />
           </motion.div>
-        )}
+        ) : null}
       </div>
     </Container>
   );
