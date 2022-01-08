@@ -72,7 +72,9 @@ function Home() {
           <div className="flex flex-col home-recommendations">
             <motion.h2 className="font-semibold mb-2">Explore plans</motion.h2>
             {data?.recommendations?.map((recc) => (
-              <PlanCard plan={recc} key={recc.id} />
+              <div key={recc.id} className="mb-2">
+                <PlanCard plan={recc} />
+              </div>
             ))}
           </div>
         </div>
