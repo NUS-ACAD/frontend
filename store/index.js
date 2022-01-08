@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { action, createStore, persist } from 'easy-peasy';
 
 const addModuleHelper = (state, payload) => {
@@ -31,7 +32,6 @@ const addModuleHelper = (state, payload) => {
       order: existingSem.modules.length + 1,
     },
   ];
-  // eslint-disable-next-line no-param-reassign
   state.plan.semesters = [
     ...state.plan.semesters.filter(
       (sem) =>
@@ -61,7 +61,6 @@ const removeModuleHelper = (state, payload) => {
       ...m,
       order: m.order > existingModule.order ? m.order - 1 : m.order,
     }));
-  // eslint-disable-next-line no-param-reassign
   state.plan.semesters = [
     ...state.plan.semesters.filter(
       (sem) =>
@@ -75,7 +74,6 @@ const store = createStore(
   persist({
     user: null,
     setUser: action((state, payload) => {
-      // eslint-disable-next-line no-param-reassign
       state.user = payload;
     }),
     plan: {
@@ -86,15 +84,15 @@ const store = createStore(
       semesters: [],
     },
     setPlan: action((state, payload) => {
-      // eslint-disable-next-line no-param-reassign
       state.plan = payload;
     }),
+    updateStartYear: action((state, payload) => {
+      state.plan.startYear = payload;
+    }),
     updateTitle: action((state, payload) => {
-      // eslint-disable-next-line no-param-reassign
       state.plan.title = payload;
     }),
     updateDescription: action((state, payload) => {
-      // eslint-disable-next-line no-param-reassign
       state.plan.description = payload;
     }),
     // Example payload: { year: 2019, semesterNo: 3, moduleCode: 'CS3216', moduleTitle: '...' }

@@ -1,6 +1,6 @@
 import { debounce } from 'debounce';
 import { motion } from 'framer-motion';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 import { useRouter } from 'next/router';
 import Container from '../../components/Container';
@@ -32,6 +32,7 @@ function PlanCreate() {
   const removeModule = useStoreActions((state) => state.removeModule);
   const updateTitle = useStoreActions((state) => state.updateTitle);
   const updateDescription = useStoreActions((state) => state.updateDescription);
+  const updateStartYear = useStoreActions((state) => state.updateStartYear);
   // This will be the module code
   const [selectedModule, setSelectedModule] = useState(null);
   const [shiftSource, setShiftSource] = useState(null);
@@ -50,6 +51,12 @@ function PlanCreate() {
     }, 500),
     [],
   );
+
+  useEffect(() => {
+    if (user && user?.matriculationYear !== plan.startYear) {
+      updateStartYear(user.matriculationYear);
+    }
+  }, [plan.startYear, updateStartYear, user]);
 
   if (user == null) {
     return <NotAllowed />;
