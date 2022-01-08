@@ -168,9 +168,9 @@ function PlanCreate() {
       description={SITE.description}
     >
       <Sidebar>
-        <motion.div className="mx-4 mb-1 shrink-0">
+        <motion.div className="px-4 mb-1">
           <Input
-            className="shrink-0"
+            className="w-full"
             onChange={onSearchChange}
             placeholder="Search for modules"
           />

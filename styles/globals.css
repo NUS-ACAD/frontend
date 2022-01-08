@@ -37,3 +37,12 @@ a {
   object-fit: cover;
   object-position: 0 0;
 }
+
+.is-dimmed div.sidebar-card {
+  border-color: #7b7b81;
+  opacity: 0.8;
+}
+
+.is-dimmed div.sidebar-card:hover {
+  opacity: 1;
+}

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useStoreState } from 'easy-peasy';
+import classNames from 'classnames';
 import Container from '../../components/Container';
 import Sidebar from '../../components/Sidebar';
 import { getProfile } from '../../services/profile';
@@ -21,6 +22,7 @@ function Profile() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const user = useStoreState((state) => state.user);
+  const [selectedPlan, setSelectedPlan] = useState(null);
 
   useEffect(() => {
     let didCancel = false;
@@ -32,6 +34,12 @@ function Profile() {
           if (!didCancel) {
             setData(profileData);
             setIsLoading(false);
+            if (profileData.userPlans && profileData.userPlans.length > 0) {
+              // Assumption: must have at least a primary plan
+              setSelectedPlan(
+                profileData.userPlans.filter((plan) => plan.isPrimary)[0],
+              );
+            }
           }
         })
         .catch(() => {
@@ -54,8 +62,8 @@ function Profile() {
     // TODO:
   };
 
-  const plans = data?.userPlans?.filter((userPlan) => userPlan.isPrimary);
-  const plan = (plans?.length ?? 0) > 0 ? plans[0] : null;
+  // eslint-disable-next-line no-nested-ternary
+  const plans = data?.userPlans?.sort((x, y) => (x === y ? 0 : x ? -1 : 1));
 
   const isSelf = data?.userData?.id === user.id;
 
@@ -100,32 +108,41 @@ function Profile() {
             />
           )}
         </div>
-        {plan != null ? (
-          <div className="mx-4">
+        {(plans ?? []).map((plan) => (
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+          <div
+            className={classNames('mx-4 cursor-pointer', {
+              'is-dimmed': selectedPlan.id !== plan.id,
+            })}
+            key={plan.id}
+            onClick={() => {
+              setSelectedPlan(plan);
+            }}
+          >
             <PlanCard plan={plan} />
           </div>
-        ) : null}
+        ))}
       </Sidebar>
       <div className="sidebar-right mt-8 pl-4">
         <motion.h1 className="text-2xl mr-4 font-semibold mb-4">
           {/* eslint-disable-next-line no-nested-ternary */}
-          {plan?.title
-            ? plan.title
+          {selectedPlan?.title
+            ? selectedPlan.title
             : isSelf
             ? "You don't have a plan yet!"
             : 'This user does not have a plan yet!'}
         </motion.h1>
         <motion.h1 className="text-md mr-4 mb-8">
           {/* eslint-disable-next-line no-nested-ternary */}
-          {plan?.description
-            ? plan.description
+          {selectedPlan?.description
+            ? selectedPlan.description
             : isSelf
             ? 'Get started now!'
             : 'Perhaps you can let them witness your awesome plan?'}
         </motion.h1>
-        {plan != null ? (
+        {selectedPlan != null ? (
           <motion.div>
-            <StatelessPlan plan={plan} />
+            <StatelessPlan plan={selectedPlan} />
           </motion.div>
         ) : null}
       </div>
