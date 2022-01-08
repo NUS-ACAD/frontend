@@ -108,12 +108,18 @@ function Profile() {
       </Sidebar>
       <div className="sidebar-right mt-8 pl-4">
         <motion.h1 className="text-2xl mr-4 font-semibold mb-4">
-          {plan?.title ?? isSelf
+          {/* eslint-disable-next-line no-nested-ternary */}
+          {plan?.title
+            ? plan.title
+            : isSelf
             ? "You don't have a plan yet!"
             : 'This user does not have a plan yet!'}
         </motion.h1>
         <motion.h1 className="text-md mr-4 mb-8">
-          {plan?.description ?? isSelf
+          {/* eslint-disable-next-line no-nested-ternary */}
+          {plan?.description
+            ? plan.description
+            : isSelf
             ? 'Get started now!'
             : 'Perhaps you can let them witness your awesome plan?'}
         </motion.h1>

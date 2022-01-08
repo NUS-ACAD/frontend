@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import Link from 'next/link';
 import { useStoreState } from 'easy-peasy';
+import { useRouter } from 'next/router';
 import GroupCard from '../../components/GroupCard';
 import PlanCard from '../../components/PlanCard';
 import SidebarCardGhost from '../../components/SidebarCardGhost';
@@ -29,6 +30,7 @@ const generateAnim = (delay) => ({
 
 function SidebarContent({ plan, group, activities, isLoading }) {
   const user = useStoreState((state) => state.user);
+  const router = useRouter();
 
   return (
     <SkeletonTheme baseColor="#201F28" highlightColor="#332D3B">
@@ -61,7 +63,14 @@ function SidebarContent({ plan, group, activities, isLoading }) {
             You don&apos;t have any academic plans! Create one or fork one now!
           </div>
         ) : (
-          <PlanCard plan={plan} />
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+          <div
+            onClick={() => {
+              router.push(`/plan/update/${plan.id}`);
+            }}
+          >
+            <PlanCard plan={plan} />
+          </div>
         )}
       </motion.div>
       <motion.div

@@ -168,11 +168,13 @@ function PlanCreate() {
       description={SITE.description}
     >
       <Sidebar>
-        <Input
-          className="mx-4 shrink-0 mb-1"
-          onChange={onSearchChange}
-          placeholder="Search for modules"
-        />
+        <motion.div className="mx-4 mb-1 shrink-0">
+          <Input
+            className="shrink-0"
+            onChange={onSearchChange}
+            placeholder="Search for modules"
+          />
+        </motion.div>
         {modules.map((mod) => (
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus
           <div
