@@ -18,7 +18,7 @@ function Plan({
     plan.startYear + 2,
     plan.startYear + 3,
   ];
-  if (plan.semesters.some((sem) => sem.year === plan.startYear + 4)) {
+  if (plan.semesters?.some((sem) => sem.year === plan.startYear + 4)) {
     years.push(plan.startYear + 4);
   }
 
