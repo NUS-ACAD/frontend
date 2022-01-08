@@ -103,13 +103,13 @@ function Home() {
               All activity
             </motion.h2>
             {data?.feed?.map((activity, index) => (
-              <motion.div key={activity.id}>
-                <FeedCard
-                  variants={generateAnim(1.2 + index * 0.1)}
-                  initial="hidden"
-                  animate="show"
-                  activity={activity}
-                />
+              <motion.div
+                key={activity.id}
+                variants={generateAnim(1.2 + index * 0.1)}
+                initial="hidden"
+                animate="show"
+              >
+                <FeedCard activity={activity} />
               </motion.div>
             ))}
             <motion.div
