@@ -39,39 +39,42 @@ export function validateMatriculationYear(year) {
  * @return {boolean} Whether prereqs are met.
  */
 export function meetPrereqs(myMods, modToCheck) {
-  const prereqTree = MODULE_DATA[modToCheck]["prereqs"];
+  const prereqTree = MODULE_DATA[modToCheck].prereqs;
   function helper(tree) {
-    if (typeof(tree) === "string") {
-      return myMods.has(tree)
+    if (typeof tree === 'string') {
+      return myMods.has(tree);
     }
-    if ("or" in tree) {
-      tree = tree["or"];
+    if ('or' in tree) {
+      // eslint-disable-next-line no-param-reassign
+      tree = tree.or;
 
-      for (let i = 0; i < tree.length; i++) {
+      for (let i = 0; i < tree.length; i += 1) {
         const prereq = tree[i];
-        if (typeof(prereq) === "string" && myMods.has(prereq)) {
+        if (typeof prereq === 'string' && myMods.has(prereq)) {
           return true;
-        } else if (helper(prereq)) {
+        }
+        if (helper(prereq)) {
           return true;
         }
       }
       return false;
-    } else {
-      tree = tree["and"];
-      for (let i = 0; i < tree.length; i++) {
-        let prereq = tree[i];
-        if (typeof(prereq) === 'string' && !(myMods.has(prereq))) {
+    }
+    // eslint-disable-next-line no-param-reassign
+    tree = tree.and;
+    for (let i = 0; i < tree.length; i += 1) {
+      const prereq = tree[i];
+      if (typeof prereq === 'string' && !myMods.has(prereq)) {
+        return false;
+      }
+      if (typeof prereq === 'object') {
+        if (!helper(prereq)) {
           return false;
-        } else if (typeof(prereq) === "object") {
-          if (!helper(prereq)) {
-            return false;
-          }
         }
       }
-      return true;
     }
+    return true;
   }
-  return helper(prereqTree)
+  return helper(prereqTree);
 }
 
 export function updateModuleValidity(acadPlan) {
@@ -79,20 +82,26 @@ export function updateModuleValidity(acadPlan) {
   const myMods = new Set();
 
   // sorting by semester
-  acadPlan.semesters.sort((a, b) => a.year*10 + a.semesterNo - b.year*10 - b.semesterNo);
+  acadPlan.semesters.sort(
+    (a, b) => a.year * 10 + a.semesterNo - b.year * 10 - b.semesterNo,
+  );
 
-  for (let i = 0; i < acadPlan.semesters.length - 1; i++) {
+  for (let i = 0; i < acadPlan.semesters.length - 1; i += 1) {
     const sem = acadPlan.semesters[i];
     const nextSem = acadPlan.semesters[i + 1];
-    for (let j = 0; j < sem.modules.length; j++) {
+    for (let j = 0; j < sem.modules.length; j += 1) {
       myMods.add(sem.modules[j].moduleCode);
     }
     const fulfillPrereqs = {};
-    for (let j = 0; j < nextSem.modules.length; j++) {
-      fulfillPrereqs[nextSem.modules[j].moduleCode] = meetPrereqs(myMods, nextSem.modules[j].moduleCode);
+    for (let j = 0; j < nextSem.modules.length; j += 1) {
+      fulfillPrereqs[nextSem.modules[j].moduleCode] = meetPrereqs(
+        myMods,
+        nextSem.modules[j].moduleCode,
+      );
     }
+    // eslint-disable-next-line no-restricted-syntax,  guard-for-in
     for (const mod in fulfillPrereqs) {
-      for (let j = 0; j < nextSem.modules.length; j++) {
+      for (let j = 0; j < nextSem.modules.length; j += 1) {
         if (nextSem.modules[j].moduleCode === mod) {
           nextSem.modules[j].hasError = !fulfillPrereqs[mod];
           break;
@@ -103,6 +112,7 @@ export function updateModuleValidity(acadPlan) {
 
   if (acadPlan.semesters.length > 0) {
     const firstSem = acadPlan.semesters[0];
+    // eslint-disable-next-line no-restricted-syntax, guard-for-in
     for (const m in firstSem.modules) {
       firstSem.modules[m].hasError = false;
     }
@@ -112,33 +122,37 @@ export function updateModuleValidity(acadPlan) {
 }
 
 export function fulfillabilityIndex(myAcadPlan, otherAcadPlan) {
-  const mySems = myAcadPlan["semesters"];
-  const otherSems = otherAcadPlan["semesters"];
+  const mySems = myAcadPlan.semesters;
+  const otherSems = otherAcadPlan.semesters;
 
   const myDict = {};
   const otherDict = {};
   let myTotalMods = 0;
+  // eslint-disable-next-line no-restricted-syntax, guard-for-in
   for (const sem in mySems) {
     const thisSemMods = new Set();
-    for (const mod in sem["modules"]) {
-      thisSemMods.add(mod["moduleCode"]);
+    // eslint-disable-next-line no-restricted-syntax, guard-for-in
+    for (const mod in sem.modules) {
+      thisSemMods.add(mod.moduleCode);
     }
     myTotalMods += thisSemMods.length;
-    myDict[sem["year"] + sem["semesterNo"]/10] = thisSemMods;
+    myDict[sem.year + sem.semesterNo / 10] = thisSemMods;
   }
+  // eslint-disable-next-line no-restricted-syntax, guard-for-in
   for (const sem in otherSems) {
     const otherSemMods = new Set();
-    for (const mod in sem["modules"]) {
-      otherSemMods.add(mod["moduleCode"]);
+    // eslint-disable-next-line no-restricted-syntax, guard-for-in
+    for (const mod in sem.modules) {
+      otherSemMods.add(mod.moduleCode);
     }
-    otherDict[sem["year"] + sem["semesterNo"]/10] = otherSemMods;
+    otherDict[sem.year + sem.semesterNo / 10] = otherSemMods;
   }
-  const delta = otherAcadPlan["startYear"] - myAcadPlan["startYear"];
+  const delta = otherAcadPlan.startYear - myAcadPlan.startYear;
   let total = 0;
-
+  // eslint-disable-next-line no-restricted-syntax, guard-for-in
   for (const year in myDict) {
     if (otherDict.has(year + delta)) {
-      let intersect = new Set([...myDict].filter(i => otherDict.has(i)));
+      const intersect = new Set([...myDict].filter((i) => otherDict.has(i)));
       total += intersect.length;
     }
   }
@@ -146,6 +160,9 @@ export function fulfillabilityIndex(myAcadPlan, otherAcadPlan) {
 }
 
 export function rankByfulfillability(myAcadPlan, otherAcadPlans) {
-  otherAcadPlans.sort((a, b) => fulfillabilityIndex(myAcadPlan, b) - fulfillabilityIndex(myAcadPlan, a))
+  otherAcadPlans.sort(
+    (a, b) =>
+      fulfillabilityIndex(myAcadPlan, b) - fulfillabilityIndex(myAcadPlan, a),
+  );
   return otherAcadPlans;
 }

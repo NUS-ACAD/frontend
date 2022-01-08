@@ -1,19 +1,19 @@
 import { debounce } from 'debounce';
 import { motion } from 'framer-motion';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 import { useRouter } from 'next/router';
-import Container from '../../components/Container';
-import Input from '../../components/Input';
-import Sidebar from '../../components/Sidebar';
-import SITE from '../../site.config';
-import MODULES from '../../data/moduleData';
-import ModuleCard from '../../components/ModuleCard';
-import Plan from '../../components/Plan';
-import NotAllowed from '../../components/NotAllowed';
-import Button from '../../components/Button';
-import { updateModuleValidity } from '../../utils/validations';
-import { createPlan } from '../../services/plan';
+import Container from '../../../components/Container';
+import Input from '../../../components/Input';
+import Sidebar from '../../../components/Sidebar';
+import SITE from '../../../site.config';
+import MODULES from '../../../data/moduleData';
+import ModuleCard from '../../../components/ModuleCard';
+import Plan from '../../../components/Plan';
+import NotAllowed from '../../../components/NotAllowed';
+import Button from '../../../components/Button';
+
+import { getPlan, updatePlan } from '../../../services/plan';
 
 const MODULE_ARRAY = Object.entries(MODULES);
 
@@ -24,7 +24,9 @@ function getRelevantModules(searchString) {
   );
 }
 
-function PlanCreate() {
+function PlanUpdate() {
+  const router = useRouter();
+  const { id } = router.query;
   const [modules, setModules] = useState([]);
   const user = useStoreState((state) => state.user);
   const plan = useStoreState((state) => state.plan);
@@ -32,11 +34,12 @@ function PlanCreate() {
   const removeModule = useStoreActions((state) => state.removeModule);
   const updateTitle = useStoreActions((state) => state.updateTitle);
   const updateDescription = useStoreActions((state) => state.updateDescription);
+  const setPlan = useStoreActions((state) => state.setPlan);
   // This will be the module code
   const [selectedModule, setSelectedModule] = useState(null);
   const [shiftSource, setShiftSource] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(null);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onSearchChange = useCallback(
@@ -51,8 +54,37 @@ function PlanCreate() {
     [],
   );
 
+  useEffect(() => {
+    let didCancel = false;
+
+    const fetch = async () => {
+      if (!id) return;
+      await getPlan({ id })
+        .then((planData) => {
+          if (!didCancel) {
+            setPlan(planData);
+            setIsLoading(false);
+          }
+        })
+        .catch(() => {
+          setIsLoading(false);
+          router.push('/plan/create');
+        });
+    };
+
+    fetch();
+
+    return () => {
+      didCancel = true;
+    };
+  }, [id, router, setPlan]);
+
   if (user == null) {
     return <NotAllowed />;
+  }
+
+  if (isLoading) {
+    return <>Loading...</>;
   }
 
   const clonedPlan = JSON.parse(JSON.stringify(plan));
@@ -98,10 +130,9 @@ function PlanCreate() {
       });
     });
   }
-  updateModuleValidity(clonedPlan);
 
   const confirmAddition = (moduleCode, sem, year) => {
-    if (isLoading) return;
+    if (isLoading || isUpdating) return;
     // [sem, year] pair
     if (shiftSource != null) {
       removeModule({
@@ -121,7 +152,7 @@ function PlanCreate() {
   };
 
   const onRemove = (moduleCode, sem, year) => {
-    if (isLoading) return;
+    if (isLoading || isUpdating) return;
     if (selectedModule) {
       // Don't allow deletion when a module is selected
       return;
@@ -133,24 +164,22 @@ function PlanCreate() {
     });
   };
 
-  const onCreate = async () => {
-    setIsLoading(true);
-    await createPlan({
+  const onUpdate = async () => {
+    setIsUpdating(true);
+    await updatePlan({
       ...plan,
-      isPrimary: false,
-      startYear: user.matriculationYear,
     })
       .then((data) => {
         router.push(`/plan/update/${data.id}`);
       })
       .catch(() => {
-        setIsLoading(false);
+        setIsUpdating(false);
       });
   };
 
   return (
     <Container
-      title={`Create Plan | ${SITE.title}`}
+      title={`Update Plan | ${SITE.title}`}
       description={SITE.description}
     >
       <Sidebar>
@@ -190,14 +219,14 @@ function PlanCreate() {
             Create Academic Plan
           </motion.h1>
           <Button
-            label="Create"
+            label="Update"
             className="blue-button"
             isDisabled={
               clonedPlan.title.length === 0 ||
               clonedPlan.description.length === 0
             }
-            isLoading={isLoading}
-            onClick={onCreate}
+            isLoading={isUpdating}
+            onClick={onUpdate}
           />
         </div>
         <div className="flex pr-4 mb-8">
@@ -207,7 +236,7 @@ function PlanCreate() {
             value={clonedPlan.title}
             onChange={updateTitle}
             placeholder="Name"
-            isDisabled={isLoading}
+            isDisabled={isUpdating || isLoading}
           />
           <Input
             className="w-full ml-2 plan-create-description"
@@ -215,7 +244,7 @@ function PlanCreate() {
             value={clonedPlan.description}
             onChange={updateDescription}
             placeholder="Description"
-            isDisabled={isLoading}
+            isDisabled={isUpdating || isLoading}
           />
         </div>
         <motion.div>
@@ -223,7 +252,7 @@ function PlanCreate() {
             plan={clonedPlan}
             confirmAddition={confirmAddition}
             onClickModule={(moduleCode, sem, year) => {
-              if (isLoading) return;
+              if (isLoading || isUpdating) return;
               if (shiftSource !== null) {
                 setShiftSource(null);
                 setSelectedModule(null);
@@ -242,4 +271,4 @@ function PlanCreate() {
   );
 }
 
-export default PlanCreate;
+export default PlanUpdate;

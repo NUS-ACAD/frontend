@@ -8,15 +8,15 @@ function PlanCard({ plan }) {
       style={{ backgroundColor: '#201F28' }}
     >
       <div className="text-s font-semibold mb-2 sidebar-card-title">
-        {plan.name}
+        {plan.title}
       </div>
       <div className="text-xs mb-2">{plan.description}</div>
       <div className="flex">
         <div className="flex mr-2 text-xs" style={{ color: '#7B7B81' }}>
-          <Star className="mr-1" /> {plan.likes}
+          <Star className="mr-1" /> {plan.numOfLikes}
         </div>
         <div className="flex text-xs" style={{ color: '#7B7B81' }}>
-          <Fork className="mr-1" /> {plan.forks}
+          <Fork className="mr-1" /> {plan.numOfForks}
         </div>
       </div>
     </div>
