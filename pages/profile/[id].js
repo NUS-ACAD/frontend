@@ -54,7 +54,8 @@ function Profile() {
     // TODO:
   };
 
-  const plan = data?.userPlans?.filter((userPlan) => userPlan.isPrimary);
+  const plans = data?.userPlans?.filter((userPlan) => userPlan.isPrimary);
+  const plan = (plans?.length ?? 0) > 0 ? plans[0] : null;
 
   const isSelf = data?.userData?.id === user.id;
 
