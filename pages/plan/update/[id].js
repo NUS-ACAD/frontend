@@ -220,10 +220,10 @@ function PlanUpdate() {
           </div>
         ))}
       </Sidebar>
-      <div className="sidebar-right mt-8 pl-4">
-        <div className="flex items-center justify-between pr-4 mb-4">
+      <div className="sidebar-right mt-6 pl-4">
+        <div className="flex items-center justify-between pr-4 mb-2">
           <motion.h1 className="text-2xl mr-4 font-semibold">
-            Create Academic Plan
+            Update Academic Plan
           </motion.h1>
           <Button
             label="Update"
