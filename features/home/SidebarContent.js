@@ -17,7 +17,7 @@ const generateAnim = (delay) => ({
     opacity: [0, 1, 1, 1],
     x: 0,
     transition: {
-      duration: 2.5,
+      duration: 1.5,
       type: 'spring',
       velocity: 100,
       stiffness: 700,

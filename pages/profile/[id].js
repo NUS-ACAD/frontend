@@ -112,7 +112,7 @@ function Profile() {
             ? "You don't have a plan yet!"
             : 'This user does not have a plan yet!'}
         </motion.h1>
-        <motion.h1 className="text-lg mr-4 mb-8">
+        <motion.h1 className="text-md mr-4 mb-8">
           {plan?.description ?? isSelf
             ? 'Get started now!'
             : 'Perhaps you can let them witness your awesome plan?'}

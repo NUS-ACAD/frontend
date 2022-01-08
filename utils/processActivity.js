@@ -1,5 +1,7 @@
 const processActivity = (activity, isMe = false) => {
   switch (activity.activityType) {
+    case 'welcome':
+      return 'Welcome to ACAD! We look forward to having an awesome journey with you here!';
     case 'created_plan':
       return `${isMe ? 'You' : activity.userName} created a new plan ${
         activity.planName
