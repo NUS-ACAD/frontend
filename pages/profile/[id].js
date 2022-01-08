@@ -111,7 +111,7 @@ function Profile() {
         {(plans ?? []).map((plan) => (
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
           <div
-            className={classNames('mx-4 cursor-pointer', {
+            className={classNames('mx-4 cursor-pointer mb-4', {
               'is-dimmed': selectedPlan.id !== plan.id,
             })}
             key={plan.id}
