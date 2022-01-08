@@ -3,13 +3,14 @@ import ModuleCard from '../ModuleCard';
 
 function StatelessYearColumn({ year, semesters }) {
   const sems = Array.from(
-    new Set([1, 2, ...semesters.map((sem) => sem.semesterNo)]),
+    new Set([1, 2, ...(semesters?.map((sem) => sem.semesterNo) ?? [])]),
   ).sort();
-  const semToDataMap = semesters.reduce((prev, curr) => {
-    // eslint-disable-next-line no-param-reassign
-    prev[curr.semesterNo] = curr;
-    return prev;
-  }, {});
+  const semToDataMap =
+    semesters?.reduce((prev, curr) => {
+      // eslint-disable-next-line no-param-reassign
+      prev[curr.semesterNo] = curr;
+      return prev;
+    }, {}) ?? {};
 
   const getSemName = (sem) => {
     if (sem >= 3) {

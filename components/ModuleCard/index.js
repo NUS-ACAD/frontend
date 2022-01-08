@@ -31,7 +31,7 @@ function ModuleCard({
       <div className="text-xs mb-1">{title}</div>
       {semesters && (
         <div className="flex">
-          {semesters.map((sem) => (
+          {semesters?.map((sem) => (
             <div
               key={sem}
               className="text-xs font-semibold py-1 px-2 rounded-lg"
