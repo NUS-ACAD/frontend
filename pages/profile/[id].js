@@ -101,12 +101,17 @@ function Profile() {
       </Sidebar>
       <div className="sidebar-right mt-8 pl-4">
         <motion.h1 className="text-2xl mr-4 font-semibold mb-4">
-          {plan?.title}
+          {plan?.title ?? 'This user does not have a plan yet!'}
         </motion.h1>
-        <motion.h1 className="text-lg mr-4 mb-8">{plan?.description}</motion.h1>
-        <motion.div>
-          <StatelessPlan plan={plan} />
-        </motion.div>
+        <motion.h1 className="text-lg mr-4 mb-8">
+          {plan?.description ??
+            'Perhaps you can let them witness your awesome plan?'}
+        </motion.h1>
+        {plan && (
+          <motion.div>
+            <StatelessPlan plan={plan} />
+          </motion.div>
+        )}
       </div>
     </Container>
   );
