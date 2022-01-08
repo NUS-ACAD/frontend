@@ -113,7 +113,7 @@ function Home() {
               </motion.div>
             ))}
             <motion.div
-              variants={generateAnim(1.2 + (data?.feed?.length ?? 0) * 0.1)}
+              variants={generateAnim(1.5 + (data?.feed?.length ?? 0) * 0.1)}
               initial="hidden"
               animate="show"
             >
