@@ -26,6 +26,8 @@ function YearColumn({
     return `SEM ${sem}`;
   };
 
+  console.log(semesters);
+
   return (
     <div className="flex flex-col">
       <h1 className="text-center font-bold text-2xl mb-2">{`AY${year}/${
@@ -65,6 +67,7 @@ function YearColumn({
                       }
                     >
                       <ModuleCard
+                        hasError={m.hasError}
                         code={m.moduleCode}
                         title={m.moduleTitle}
                         isSelected={isSelected}

@@ -59,16 +59,18 @@ export function meetPrereqs(myMods, modToCheck) {
       }
       return false;
     }
-    // eslint-disable-next-line no-param-reassign
-    tree = tree.and;
-    for (let i = 0; i < tree.length; i += 1) {
-      const prereq = tree[i];
-      if (typeof prereq === 'string' && !myMods.has(prereq)) {
-        return false;
-      }
-      if (typeof prereq === 'object') {
-        if (!helper(prereq)) {
+    if ('and' in tree) {
+      // eslint-disable-next-line no-param-reassign
+      tree = tree.and;
+      for (let i = 0; i < tree.length; i += 1) {
+        const prereq = tree[i];
+        if (typeof prereq === 'string' && !myMods.has(prereq)) {
           return false;
+        }
+        if (typeof prereq === 'object') {
+          if (!helper(prereq)) {
+            return false;
+          }
         }
       }
     }
@@ -90,18 +92,30 @@ export function updateModuleValidity(acadPlan) {
     const sem = acadPlan.semesters[i];
     const nextSem = acadPlan.semesters[i + 1];
     for (let j = 0; j < sem.modules.length; j += 1) {
+      if (sem.modules[j].isTentative) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
       myMods.add(sem.modules[j].moduleCode);
     }
     const fulfillPrereqs = {};
     for (let j = 0; j < nextSem.modules.length; j += 1) {
+      // if (nextSem.modules[j].isTentative) {
+      //   // eslint-disable-next-line no-continue
+      //   continue;
+      // }
       fulfillPrereqs[nextSem.modules[j].moduleCode] = meetPrereqs(
         myMods,
         nextSem.modules[j].moduleCode,
       );
     }
-    // eslint-disable-next-line no-restricted-syntax,  guard-for-in
+    // eslint-disable-next-line no-restricted-syntax, guard-for-in
     for (const mod in fulfillPrereqs) {
       for (let j = 0; j < nextSem.modules.length; j += 1) {
+        // if (nextSem.modules[j].isTentative) {
+        //   // eslint-disable-next-line no-continue
+        //   continue;
+        // }
         if (nextSem.modules[j].moduleCode === mod) {
           nextSem.modules[j].hasError = !fulfillPrereqs[mod];
           break;

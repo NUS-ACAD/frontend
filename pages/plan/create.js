@@ -105,6 +105,7 @@ function PlanCreate() {
       });
     });
   }
+
   updateModuleValidity(clonedPlan);
 
   const confirmAddition = (moduleCode, sem, year) => {

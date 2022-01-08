@@ -1,7 +1,14 @@
 import classNames from 'classnames';
 import Cross from '../../assets/svgr/Cross';
 
-function ModuleCard({ code, title, semesters, onRemove, isSelected = false }) {
+function ModuleCard({
+  hasError = false,
+  code,
+  title,
+  semesters,
+  onRemove,
+  isSelected = false,
+}) {
   return (
     <div
       className={classNames(
@@ -10,7 +17,7 @@ function ModuleCard({ code, title, semesters, onRemove, isSelected = false }) {
           'animate-bounce z-500': isSelected,
         },
       )}
-      style={{ backgroundColor: '#201F28' }}
+      style={{ backgroundColor: hasError ? '#572d34' : '#201F28' }}
     >
       <div className="text-s font-semibold mb-1 sidebar-card-title flex items-center justify-between">
         {code}
