@@ -24,22 +24,20 @@ function FeedCard({ activity }) {
       // no-op
     }
   };
-  const canRedirect = () => {
-    [
-      'created_plan',
-      'forked_plan',
-      'updated_plan',
-      'deleted_plan',
-      'changed_primary_plan',
-      'welcome',
-    ].includes(activity.activityType);
-  };
+  const canRedirect = [
+    'created_plan',
+    'forked_plan',
+    'updated_plan',
+    'deleted_plan',
+    'changed_primary_plan',
+    'welcome',
+  ].includes(activity.activityType);
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,  jsx-a11y/no-static-element-interactions
     <div
       className={classNames('flex flex-col rounded-lg p-6 mb-4 feed-card', {
-        'cursor-pointer': canRedirect(),
+        'cursor-pointer': canRedirect,
       })}
       style={{ backgroundColor: '#201F28' }}
       onClick={handleRedirect}
