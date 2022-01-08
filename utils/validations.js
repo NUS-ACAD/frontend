@@ -46,18 +46,21 @@ export function meetPrereqs(myMods, modToCheck) {
     }
     if ("or" in tree) {
       tree = tree["or"];
-      for (const prereq in tree) {
-        if (typeof(tree[prereq]) === "string" && myMods.has(prereq)) {
+
+      for (let i = 0; i < tree.length; i++) {
+        const prereq = tree[i];
+        if (typeof(prereq) === "string" && myMods.has(prereq)) {
           return true;
-        } else if (typeof(prereq) === "object") {
-          return helper(prereq);
+        } else if (helper(prereq)) {
+          return true;
         }
       }
       return false;
     } else {
       tree = tree["and"];
-      for (const prereq in tree) {
-        if (typeof(tree[prereq] === 'string' && !(myMods.has(prereq)))) {
+      for (let i = 0; i < tree.length; i++) {
+        let prereq = tree[i];
+        if (typeof(prereq) === 'string' && !(myMods.has(prereq))) {
           return false;
         } else if (typeof(prereq) === "object") {
           if (!helper(prereq)) {
@@ -69,6 +72,43 @@ export function meetPrereqs(myMods, modToCheck) {
     }
   }
   return helper(prereqTree)
+}
+
+export function updateModuleValidity(acadPlan) {
+  // cumulative mods
+  const myMods = new Set();
+
+  // sorting by semester
+  acadPlan.semesters.sort((a, b) => a.year*10 + a.semesterNo - b.year*10 - b.semesterNo);
+
+  for (let i = 0; i < acadPlan.semesters.length - 1; i++) {
+    const sem = acadPlan.semesters[i];
+    const nextSem = acadPlan.semesters[i + 1];
+    for (let j = 0; j < sem.modules.length; j++) {
+      myMods.add(sem.modules[j].moduleCode);
+    }
+    const fulfillPrereqs = {};
+    for (let j = 0; j < nextSem.modules.length; j++) {
+      fulfillPrereqs[nextSem.modules[j].moduleCode] = meetPrereqs(myMods, nextSem.modules[j].moduleCode);
+    }
+    for (const mod in fulfillPrereqs) {
+      for (let j = 0; j < nextSem.modules.length; j++) {
+        if (nextSem.modules[j].moduleCode === mod) {
+          nextSem.modules[j].hasError = !fulfillPrereqs[mod];
+          break;
+        }
+      }
+    }
+  }
+
+  if (acadPlan.semesters.length > 0) {
+    const firstSem = acadPlan.semesters[0];
+    for (const m in firstSem.modules) {
+      firstSem.modules[m].hasError = false;
+    }
+  }
+
+  return acadPlan;
 }
 
 export function fulfillabilityIndex(myAcadPlan, otherAcadPlan) {

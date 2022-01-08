@@ -11,6 +11,7 @@ import ModuleCard from '../../components/ModuleCard';
 import Plan from '../../components/Plan';
 import NotAllowed from '../../components/NotAllowed';
 import Button from '../../components/Button';
+import { updateModuleValidity } from '../../utils/validations';
 
 const MODULE_ARRAY = Object.entries(MODULES);
 
@@ -93,6 +94,8 @@ function PlanCreate() {
       });
     });
   }
+  updateModuleValidity(clonedPlan);
+  console.log(clonedPlan)
 
   const confirmAddition = (moduleCode, sem, year) => {
     // [sem, year] pair
