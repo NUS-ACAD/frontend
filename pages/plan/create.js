@@ -12,6 +12,7 @@ import ModuleCard from '../../components/ModuleCard';
 import Plan from '../../components/Plan';
 import NotAllowed from '../../components/NotAllowed';
 import Button from '../../components/Button';
+import { updateModuleValidity } from '../../utils/validations';
 import { createPlan } from '../../services/plan';
 
 const MODULE_ARRAY = Object.entries(MODULES);
@@ -97,6 +98,7 @@ function PlanCreate() {
       });
     });
   }
+  updateModuleValidity(clonedPlan);
 
   const confirmAddition = (moduleCode, sem, year) => {
     if (isLoading) return;
