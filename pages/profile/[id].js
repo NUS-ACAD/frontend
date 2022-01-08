@@ -62,8 +62,10 @@ function Profile() {
     // TODO:
   };
 
-  // eslint-disable-next-line no-nested-ternary
-  const plans = data?.userPlans?.sort((x, y) => (x === y ? 0 : x ? -1 : 1));
+  const plans = data?.userPlans?.sort((x, y) =>
+    // eslint-disable-next-line no-nested-ternary
+    x.isPrimary === y.isPrimary ? x.id - y.id : x.isPrimary ? -1 : 1,
+  );
 
   const isSelf = data?.userData?.id === user.id;
 
