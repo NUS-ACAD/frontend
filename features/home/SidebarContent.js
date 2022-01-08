@@ -5,6 +5,8 @@ import GroupCard from '../../components/GroupCard';
 import PlanCard from '../../components/PlanCard';
 import SidebarCardGhost from '../../components/SidebarCardGhost';
 import Plus from '../../assets/svgr/Plus';
+import { FAKE_ACTIVITIES } from '../../data/fakeData';
+import MyActivity from './MyActivity';
 
 const generateAnim = (delay) => ({
   hidden: {
@@ -103,30 +105,17 @@ function SidebarContent({ plan, group }) {
       >
         RECENT ACTIVITY
       </motion.h2>
-      <motion.div
-        variants={generateAnim(0.8)}
-        initial="hidden"
-        animate="show"
-        className="mx-4 mb-2"
-      >
-        Activity Row
-      </motion.div>
-      <motion.div
-        variants={generateAnim(0.9)}
-        initial="hidden"
-        animate="show"
-        className="mx-4 mb-2"
-      >
-        Activity Row
-      </motion.div>
-      <motion.div
-        variants={generateAnim(1)}
-        initial="hidden"
-        animate="show"
-        className="mx-4 mb-2"
-      >
-        Activity Row
-      </motion.div>
+      {FAKE_ACTIVITIES.slice(0, 3).map((activity, index) => (
+        <motion.div
+          variants={generateAnim(0.8 + index * 0.1)}
+          initial="hidden"
+          animate="show"
+          className="mx-4 mb-2"
+          key={activity.id}
+        >
+          <MyActivity activity={activity} isLast={index === 2} />
+        </motion.div>
+      ))}
     </SkeletonTheme>
   );
 }
