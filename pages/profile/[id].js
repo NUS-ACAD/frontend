@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useStoreState } from 'easy-peasy';
 import Container from '../../components/Container';
 import Sidebar from '../../components/Sidebar';
 import { getProfile } from '../../services/profile';
@@ -19,6 +20,7 @@ function Profile() {
   const { id } = router.query;
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const user = useStoreState((state) => state.user);
 
   useEffect(() => {
     let didCancel = false;
@@ -101,11 +103,14 @@ function Profile() {
       </Sidebar>
       <div className="sidebar-right mt-8 pl-4">
         <motion.h1 className="text-2xl mr-4 font-semibold mb-4">
-          {plan?.title ?? 'This user does not have a plan yet!'}
+          {plan?.title ?? data?.userData?.id === user.id
+            ? "You don't have a plan yet!"
+            : 'This user does not have a plan yet!'}
         </motion.h1>
         <motion.h1 className="text-lg mr-4 mb-8">
-          {plan?.description ??
-            'Perhaps you can let them witness your awesome plan?'}
+          {plan?.description ?? data?.userData?.id === user.id
+            ? 'Get started now!'
+            : 'Perhaps you can let them witness your awesome plan?'}
         </motion.h1>
         {plan && (
           <motion.div>
