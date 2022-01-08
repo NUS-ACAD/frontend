@@ -35,9 +35,12 @@ function FeedCard({ activity }) {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,  jsx-a11y/no-static-element-interactions
     <div
-      className={classNames('flex flex-col rounded-lg p-6 mb-4 feed-card', {
-        'cursor-pointer': canRedirect,
-      })}
+      className={classNames(
+        'flex flex-col rounded-lg pt-5 pb-6 px-6 mb-4 feed-card',
+        {
+          'cursor-pointer': canRedirect,
+        },
+      )}
       style={{ backgroundColor: '#201F28' }}
       onClick={handleRedirect}
     >
