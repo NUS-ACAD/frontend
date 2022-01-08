@@ -5,3 +5,9 @@
 .home-recommendations {
   flex: 1;
 }
+
+.feed-card {
+  border-style: solid;
+  border-color: rgba(225, 125, 138, 0.5);
+  border-width: 2px;
+}

@@ -6,6 +6,7 @@ function SidebarCardGhost({ height }) {
       height={height}
       borderRadius="0.5rem"
       className="flex flex-col rounded-lg sidebar-card"
+      inline
     />
   );
 }

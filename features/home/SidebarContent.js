@@ -5,7 +5,6 @@ import GroupCard from '../../components/GroupCard';
 import PlanCard from '../../components/PlanCard';
 import SidebarCardGhost from '../../components/SidebarCardGhost';
 import Plus from '../../assets/svgr/Plus';
-import { FAKE_ACTIVITIES } from '../../data/fakeData';
 import MyActivity from './MyActivity';
 
 const generateAnim = (delay) => ({
@@ -27,7 +26,7 @@ const generateAnim = (delay) => ({
   },
 });
 
-function SidebarContent({ plan, group }) {
+function SidebarContent({ plan, group, activities, isLoading }) {
   return (
     <SkeletonTheme baseColor="#201F28" highlightColor="#332D3B">
       <motion.h2
@@ -51,7 +50,7 @@ function SidebarContent({ plan, group }) {
         animate="show"
         className="mx-4 mb-2"
       >
-        {plan == null ? (
+        {plan == null || isLoading ? (
           <SidebarCardGhost height={108} />
         ) : (
           <PlanCard plan={plan} />
@@ -81,7 +80,7 @@ function SidebarContent({ plan, group }) {
         animate="show"
         className="mx-4 mb-2"
       >
-        {group == null ? (
+        {group == null || isLoading ? (
           <SidebarCardGhost height={108} />
         ) : (
           <GroupCard group={group} />
@@ -105,17 +104,18 @@ function SidebarContent({ plan, group }) {
       >
         RECENT ACTIVITY
       </motion.h2>
-      {FAKE_ACTIVITIES.slice(0, 3).map((activity, index) => (
-        <motion.div
-          variants={generateAnim(0.8 + index * 0.1)}
-          initial="hidden"
-          animate="show"
-          className="mx-4 mb-2"
-          key={activity.id}
-        >
-          <MyActivity activity={activity} isLast={index === 2} />
-        </motion.div>
-      ))}
+      {!isLoading &&
+        activities?.slice(0, 3)?.map((activity, index) => (
+          <motion.div
+            variants={generateAnim(0.8 + index * 0.1)}
+            initial="hidden"
+            animate="show"
+            className="mx-4 mb-2"
+            key={activity.id}
+          >
+            <MyActivity activity={activity} isLast={index === 2} />
+          </motion.div>
+        ))}
     </SkeletonTheme>
   );
 }
