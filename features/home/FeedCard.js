@@ -4,8 +4,7 @@ import { useRouter } from 'next/router';
 import ago from 's-ago';
 import processActivity from '../../utils/processActivity';
 import ProfilePictureHelper from '../../utils/profilePic';
-
-const colors = ['#fa8ef7', '#a5d2ee', '#e8bd4b', '#f098b1'];
+import ColorHelper from '../../utils/color';
 
 function FeedCard({ activity }) {
   const string = processActivity(activity);
@@ -57,8 +56,7 @@ function FeedCard({ activity }) {
               style={{
                 height: 35,
                 width: 35,
-                backgroundColor:
-                  colors[Math.floor(Math.random() * colors.length)],
+                backgroundColor: ColorHelper.getColor(activity.userId),
               }}
             />
           </div>

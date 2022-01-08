@@ -9,12 +9,11 @@ import Sidebar from '../../components/Sidebar';
 import { getProfile } from '../../services/profile';
 import SITE from '../../site.config';
 import ProfilePictureHelper from '../../utils/profilePic';
+import ColorHelper from '../../utils/color';
 import People from '../../assets/svgr/People';
 import Button from '../../components/Button';
 import PlanCard from '../../components/PlanCard';
 import StatelessPlan from '../../components/Plan/StatelessPlan';
-
-const colors = ['#fa8ef7', '#a5d2ee', '#e8bd4b', '#f098b1'];
 
 function Profile() {
   const router = useRouter();
@@ -89,8 +88,7 @@ function Profile() {
               style={{
                 height: 156,
                 width: 156,
-                backgroundColor:
-                  colors[Math.floor(Math.random() * colors.length)],
+                backgroundColor: ColorHelper.getColor(data?.userData?.id),
               }}
             />
           </div>
